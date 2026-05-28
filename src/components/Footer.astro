@@ -1,0 +1,45 @@
+---
+interface Props {
+  siteName: string;
+  tagline: string;
+}
+const { siteName, tagline } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-primary text-white mt-16">
+  <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xl" aria-hidden="true">🏸</span>
+        <span class="font-bold">{siteName}</span>
+      </div>
+      <p class="text-white/70 text-sm">{tagline}</p>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-3 text-accent">Quick links</h3>
+      <ul class="space-y-1 text-sm">
+        <li><a href="/" class="text-white/70 hover:text-white transition-colors">Home</a></li>
+        <li><a href="/fixtures" class="text-white/70 hover:text-white transition-colors">Fixtures &amp; Results</a></li>
+        <li><a href="/members" class="text-white/70 hover:text-white transition-colors">Members</a></li>
+        <li><a href="/contact" class="text-white/70 hover:text-white transition-colors">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-3 text-accent">Leagues</h3>
+      <ul class="space-y-1 text-sm text-white/70">
+        <li>Stockport Badminton League</li>
+        <li>Crewe &amp; District Badminton League</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/20">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/50">
+      <span>&copy; {year} {siteName}. All rights reserved.</span>
+      <a href="/admin/" class="hover:text-white/80 transition-colors">Club admin</a>
+    </div>
+  </div>
+</footer>

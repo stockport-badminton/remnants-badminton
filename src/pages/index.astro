@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import FixtureTable from '../components/FixtureTable.astro';
+import homeData from '../data/home.json';
+import fixtureData from '../data/fixtures.json';
+
+const upcomingFixtures = fixtureData.fixtures
+  .filter((f) => f.status === 'outstanding' && new Date(f.date) >= new Date())
+  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  .slice(0, 5);
+---
+
+<Base>
+  <!-- Hero -->
+  <section
+    class="relative bg-primary text-white py-24 px-4 overflow-hidden"
+    style="background: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 70%, black) 100%)"
+  >
+    <div class="absolute inset-0 opacity-5" aria-hidden="true"
+      style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22><circle cx=%2240%22 cy=%2240%22 r=%2238%22 fill=%22none%22 stroke=%22white%22 stroke-width=%222%22/><line x1=%2240%22 y1=%222%22 x2=%2240%22 y2=%2278%22 stroke=%22white%22 stroke-width=%221%22/><line x1=%222%22 y1=%2240%22 x2=%2278%22 y2=%2240%22 stroke=%22white%22 stroke-width=%221%22/></svg>'); background-size: 80px;"
+    ></div>
+    <div class="relative max-w-4xl mx-auto text-center">
+      <div class="text-6xl mb-6" aria-hidden="true">🏸</div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+        {homeData.heroHeading}
+      </h1>
+      <p class="text-xl text-white/80 max-w-2xl mx-auto mb-8">
+        {homeData.heroSubheading}
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/fixtures" class="bg-accent text-gray-900 font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
+          View Fixtures
+        </a>
+        <a href="/contact" class="bg-white/10 border border-white/30 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/20 transition-colors">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-bold text-primary mb-4">{homeData.aboutHeading}</h2>
+        {homeData.aboutText.split('\n\n').map((para) => (
+          <p class="text-gray-600 mb-4 leading-relaxed">{para}</p>
+        ))}
+        <a href="/members" class="inline-flex items-center text-secondary font-semibold hover:underline mt-2">
+          Meet the team →
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-primary text-white rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold mb-1">2</div>
+          <div class="text-white/80 text-sm">Leagues</div>
+        </div>
+        <div class="bg-secondary text-white rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold mb-1">🏸</div>
+          <div class="text-white/80 text-sm">All abilities</div>
+        </div>
+        <div class="bg-accent text-gray-900 rounded-xl p-6 text-center col-span-2">
+          <div class="font-bold text-sm">Playing at Lymm Leisure Centre</div>
+          <div class="text-gray-700 text-xs mt-1">{homeData.venueAddress}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming fixtures -->
+  {upcomingFixtures.length > 0 && (
+    <section class="bg-gray-50 py-16 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-primary">Upcoming Fixtures</h2>
+          <a href="/fixtures" class="text-secondary font-medium text-sm hover:underline">
+            All fixtures →
+          </a>
+        </div>
+        <FixtureTable fixtures={upcomingFixtures} view="upcoming" />
+      </div>
+    </section>
+  )}
+
+  <!-- Map -->
+  <section class="max-w-5xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-primary mb-2">{homeData.venueHeading}</h2>
+    <p class="text-gray-600 mb-6">{homeData.venueAddress}</p>
+    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+      <iframe
+        src={`https://www.google.com/maps?q=${homeData.venueLat},${homeData.venueLng}&z=15&output=embed`}
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Lymm Leisure Centre on Google Maps"
+      ></iframe>
+    </div>
+    <div class="mt-4 flex gap-4 text-sm">
+      <a
+        href={`https://www.google.com/maps/dir/?api=1&destination=${homeData.venueLat},${homeData.venueLng}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 text-secondary font-medium hover:underline"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        Get directions
+      </a>
+    </div>
+  </section>
+</Base>

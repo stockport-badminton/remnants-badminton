@@ -1,0 +1,70 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Uploads go into public/images so they're served as static assets
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+# Netlify Identity handles who can log in — invite editors from the Netlify dashboard
+collections:
+
+  # ── Members (Rogues Gallery) ──────────────────────────────────────────────
+  - name: "members"
+    label: "Members"
+    label_singular: "Member"
+    folder: "src/content/members"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Full name", name: "name", widget: "string" }
+      - { label: "Role / Position", name: "role", widget: "string",
+          hint: "e.g. Club Captain, Treasurer, Player" }
+      - { label: "Short bio", name: "bio", widget: "text", required: false,
+          hint: "A sentence or two about the member." }
+      - { label: "Photo", name: "photo", widget: "image", required: false,
+          hint: "Ideally a square portrait, at least 300×300px." }
+      - { label: "Display order", name: "order", widget: "number",
+          required: false, default: 99,
+          hint: "Lower numbers appear first. Leave blank to appear last." }
+      - { label: "Body (optional extra content)", name: "body", widget: "markdown", required: false }
+
+  # ── Home page content ──────────────────────────────────────────────────────
+  - name: "home_page"
+    label: "Home Page"
+    files:
+      - label: "Home Page Content"
+        name: "home"
+        file: "src/data/home.json"
+        fields:
+          - { label: "Hero heading", name: "heroHeading", widget: "string" }
+          - { label: "Hero subheading", name: "heroSubheading", widget: "string" }
+          - { label: "About heading", name: "aboutHeading", widget: "string" }
+          - { label: "About text", name: "aboutText", widget: "text",
+              hint: "Separate paragraphs with a blank line." }
+          - { label: "Venue heading", name: "venueHeading", widget: "string" }
+          - { label: "Venue address", name: "venueAddress", widget: "string" }
+          - { label: "Venue latitude", name: "venueLat", widget: "number",
+              value_type: "float" }
+          - { label: "Venue longitude", name: "venueLng", widget: "number",
+              value_type: "float" }
+
+  # ── Theme / Branding ───────────────────────────────────────────────────────
+  - name: "theme"
+    label: "Theme & Branding"
+    files:
+      - label: "Colours & Site Name"
+        name: "theme"
+        file: "src/data/theme.json"
+        fields:
+          - { label: "Site name", name: "siteName", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Primary colour (nav, headings)",
+              name: "primaryColor", widget: "color",
+              hint: "Used for navigation bar, headings, and buttons." }
+          - { label: "Secondary colour (accents, links)",
+              name: "secondaryColor", widget: "color" }
+          - { label: "Accent colour (call-to-action buttons)",
+              name: "accentColor", widget: "color" }

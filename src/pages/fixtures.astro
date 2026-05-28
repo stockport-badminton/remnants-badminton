@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import FixtureTable from '../components/FixtureTable.astro';
+import fixtureData from '../data/fixtures.json';
+
+const { fixtures, lastUpdated } = fixtureData;
+
+const leagues = ['all', 'stockport', 'crewe'] as const;
+const views = ['upcoming', 'results'] as const;
+
+function leagueLabel(l: string) {
+  return l === 'all' ? 'All Leagues' : l.charAt(0).toUpperCase() + l.slice(1);
+}
+
+function formatUpdated(d: string | null) {
+  if (!d) return null;
+  return new Date(d).toLocaleString('en-GB', {
+    day: 'numeric', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+---
+
+<Base title="Fixtures & Results">
+  <div class="max-w-5xl mx-auto px-4 py-12">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-primary mb-1">Fixtures &amp; Results</h1>
+      {lastUpdated && (
+        <p class="text-sm text-gray-400">Last updated: {formatUpdated(lastUpdated)}</p>
+      )}
+    </div>
+
+    <!-- Controls -->
+    <div class="flex flex-wrap gap-4 mb-8" id="fixture-controls">
+      <div class="flex rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+        {views.map((v) => (
+          <button
+            data-view={v}
+            class:list={[
+              'px-4 py-2 text-sm font-medium transition-colors view-btn',
+              v === 'upcoming'
+                ? 'bg-primary text-white'
+                : 'bg-white text-gray-600 hover:bg-gray-50',
+            ]}
+          >
+            {v === 'upcoming' ? 'Upcoming' : 'Results'}
+          </button>
+        ))}
+      </div>
+
+      <div class="flex rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+        {leagues.map((l) => (
+          <button
+            data-league={l}
+            class:list={[
+              'px-4 py-2 text-sm font-medium transition-colors league-btn',
+              l === 'all'
+                ? 'bg-primary text-white'
+                : 'bg-white text-gray-600 hover:bg-gray-50',
+            ]}
+          >
+            {leagueLabel(l)}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Tables (one per view/league combo, toggled by JS) -->
+    {views.map((v) =>
+      leagues.map((l) => (
+        <div
+          data-panel={`${v}-${l}`}
+          class:list={[v === 'upcoming' && l === 'all' ? '' : 'hidden']}
+        >
+          <FixtureTable fixtures={fixtures as any} view={v} filter={l} />
+        </div>
+      ))
+    )}
+
+    {fixtures.length === 0 && (
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center text-blue-700">
+        <p class="font-medium">Fixtures not yet loaded.</p>
+        <p class="text-sm mt-1">Run the fixture scraper to populate this page.</p>
+      </div>
+    )}
+  </div>
+</Base>
+
+<script>
+  const controls = document.getElementById('fixture-controls');
+  let currentView = 'upcoming';
+  let currentLeague = 'all';
+
+  function showPanel() {
+    document.querySelectorAll('[data-panel]').forEach((el) => {
+      (el as HTMLElement).classList.add('hidden');
+    });
+    const panel = document.querySelector(`[data-panel="${currentView}-${currentLeague}"]`);
+    panel?.classList.remove('hidden');
+  }
+
+  function setActive(btns: NodeListOf<Element>, activeAttr: string, val: string) {
+    btns.forEach((btn) => {
+      const isActive = (btn as HTMLElement).dataset[activeAttr] === val;
+      btn.classList.toggle('bg-primary', isActive);
+      btn.classList.toggle('text-white', isActive);
+      btn.classList.toggle('bg-white', !isActive);
+      btn.classList.toggle('text-gray-600', !isActive);
+    });
+  }
+
+  controls?.querySelectorAll('.view-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentView = (btn as HTMLElement).dataset.view!;
+      setActive(controls.querySelectorAll('.view-btn'), 'view', currentView);
+      showPanel();
+    });
+  });
+
+  controls?.querySelectorAll('.league-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentLeague = (btn as HTMLElement).dataset.league!;
+      setActive(controls.querySelectorAll('.league-btn'), 'league', currentLeague);
+      showPanel();
+    });
+  });
+</script>

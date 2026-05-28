@@ -1,0 +1,111 @@
+---
+interface Fixture {
+  id: string;
+  league: string;
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number | null;
+  awayScore: number | null;
+  status: string;
+  isHome: boolean;
+  division: string;
+  result: 'W' | 'L' | 'D' | null;
+}
+
+interface Props {
+  fixtures: Fixture[];
+  filter?: 'all' | 'stockport' | 'crewe';
+  view?: 'upcoming' | 'results';
+}
+
+const { fixtures, filter = 'all', view = 'upcoming' } = Astro.props;
+
+const now = new Date();
+
+let filtered = fixtures.filter((f) => {
+  const d = new Date(f.date);
+  if (view === 'upcoming') return d >= now && f.status === 'outstanding';
+  return d < now || f.status !== 'outstanding';
+});
+
+if (filter !== 'all') {
+  filtered = filtered.filter((f) => f.league.toLowerCase() === filter);
+}
+
+filtered.sort((a, b) => {
+  const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
+  return view === 'upcoming' ? diff : -diff;
+});
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-GB', {
+    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+  });
+}
+
+function resultBadge(result: string | null, status: string) {
+  if (status === 'outstanding') return { text: 'TBD', cls: 'bg-gray-100 text-gray-600' };
+  if (!result) return { text: '–', cls: 'bg-gray-100 text-gray-600' };
+  const map: Record<string, { text: string; cls: string }> = {
+    W: { text: 'Win', cls: 'bg-green-100 text-green-800' },
+    L: { text: 'Loss', cls: 'bg-red-100 text-red-800' },
+    D: { text: 'Draw', cls: 'bg-yellow-100 text-yellow-800' },
+  };
+  return map[result] ?? { text: result, cls: 'bg-gray-100 text-gray-600' };
+}
+---
+
+{filtered.length === 0 ? (
+  <p class="text-gray-500 text-center py-12">
+    {view === 'upcoming' ? 'No upcoming fixtures found.' : 'No results found.'}
+  </p>
+) : (
+  <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-primary text-white text-left">
+          <th class="px-4 py-3 font-semibold">Date</th>
+          <th class="px-4 py-3 font-semibold hidden sm:table-cell">League</th>
+          <th class="px-4 py-3 font-semibold hidden md:table-cell">Division</th>
+          <th class="px-4 py-3 font-semibold">Home</th>
+          <th class="px-4 py-3 font-semibold text-center">Score</th>
+          <th class="px-4 py-3 font-semibold">Away</th>
+          <th class="px-4 py-3 font-semibold text-center">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filtered.map((f, i) => {
+          const badge = resultBadge(f.result, f.status);
+          const isRemnants = (team: string) =>
+            team.toLowerCase().includes('remnants');
+          return (
+            <tr class:list={['border-t border-gray-100', i % 2 === 0 ? 'bg-white' : 'bg-gray-50']}>
+              <td class="px-4 py-3 whitespace-nowrap text-gray-700">{formatDate(f.date)}</td>
+              <td class="px-4 py-3 hidden sm:table-cell">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">{f.league}</span>
+              </td>
+              <td class="px-4 py-3 hidden md:table-cell text-gray-600">{f.division}</td>
+              <td class:list={['px-4 py-3 font-medium', isRemnants(f.homeTeam) ? 'text-primary' : 'text-gray-800']}>
+                {f.homeTeam}
+              </td>
+              <td class="px-4 py-3 text-center font-mono font-semibold text-gray-700">
+                {f.homeScore !== null && f.awayScore !== null
+                  ? `${f.homeScore} – ${f.awayScore}`
+                  : 'vs'}
+              </td>
+              <td class:list={['px-4 py-3 font-medium', isRemnants(f.awayTeam) ? 'text-primary' : 'text-gray-800']}>
+                {f.awayTeam}
+              </td>
+              <td class="px-4 py-3 text-center">
+                <span class:list={['inline-block px-2 py-0.5 rounded text-xs font-semibold', badge.cls]}>
+                  {badge.text}
+                </span>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+)}
