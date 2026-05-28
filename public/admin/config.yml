@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: master
 
 # Uploads go into public/images so they're served as static assets
 media_folder: "public/images/uploads"
