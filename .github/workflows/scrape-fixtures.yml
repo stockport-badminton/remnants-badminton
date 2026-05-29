@@ -1,9 +1,9 @@
 name: Scrape Fixtures
 
 on:
-  # Run every 6 hours
+  # Run once daily at midnight UTC
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 0 * * *'
   # Allow manual trigger from GitHub Actions UI
   workflow_dispatch:
 
@@ -36,7 +36,7 @@ jobs:
           git add src/data/fixtures.json
           # Only commit if something actually changed
           git diff --cached --quiet && echo "No fixture changes." || \
-            git commit -m "chore: update fixtures [skip ci]"
+            git commit -m "chore: update fixtures [skip netlify]"
 
       - name: Push
         # push only if a commit was made

@@ -1,127 +1,203 @@
 ---
 import Base from '../layouts/Base.astro';
-import FixtureTable from '../components/FixtureTable.astro';
-import fixtureData from '../data/fixtures.json';
-
-const { fixtures, lastUpdated } = fixtureData;
-
-const leagues = ['all', 'stockport', 'crewe'] as const;
-const views = ['upcoming', 'results'] as const;
-
-function leagueLabel(l: string) {
-  return l === 'all' ? 'All Leagues' : l.charAt(0).toUpperCase() + l.slice(1);
-}
-
-function formatUpdated(d: string | null) {
-  if (!d) return null;
-  return new Date(d).toLocaleString('en-GB', {
-    day: 'numeric', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  });
-}
 ---
 
 <Base title="Fixtures & Results">
   <div class="max-w-5xl mx-auto px-4 py-12">
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-primary mb-1">Fixtures &amp; Results</h1>
-      {lastUpdated && (
-        <p class="text-sm text-gray-400">Last updated: {formatUpdated(lastUpdated)}</p>
-      )}
+      <p id="last-updated" class="text-sm text-gray-400"></p>
     </div>
 
-    <!-- Controls -->
     <div class="flex flex-wrap gap-4 mb-8" id="fixture-controls">
       <div class="flex rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-        {views.map((v) => (
-          <button
-            data-view={v}
-            class:list={[
-              'px-4 py-2 text-sm font-medium transition-colors view-btn',
-              v === 'upcoming'
-                ? 'bg-primary text-white'
-                : 'bg-white text-gray-600 hover:bg-gray-50',
-            ]}
-          >
-            {v === 'upcoming' ? 'Upcoming' : 'Results'}
-          </button>
-        ))}
+        <button data-view="upcoming" class="view-btn px-4 py-2 text-sm font-medium transition-colors bg-primary text-white">Upcoming</button>
+        <button data-view="results"  class="view-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Results</button>
       </div>
-
       <div class="flex rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-        {leagues.map((l) => (
-          <button
-            data-league={l}
-            class:list={[
-              'px-4 py-2 text-sm font-medium transition-colors league-btn',
-              l === 'all'
-                ? 'bg-primary text-white'
-                : 'bg-white text-gray-600 hover:bg-gray-50',
-            ]}
-          >
-            {leagueLabel(l)}
-          </button>
-        ))}
+        <button data-league="all"       class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-primary text-white">All Leagues</button>
+        <button data-league="stockport" class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Stockport</button>
+        <button data-league="crewe"     class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Crewe</button>
       </div>
     </div>
 
-    <!-- Tables (one per view/league combo, toggled by JS) -->
-    {views.map((v) =>
-      leagues.map((l) => (
-        <div
-          data-panel={`${v}-${l}`}
-          class:list={[v === 'upcoming' && l === 'all' ? '' : 'hidden']}
-        >
-          <FixtureTable fixtures={fixtures as any} view={v} filter={l} />
-        </div>
-      ))
-    )}
-
-    {fixtures.length === 0 && (
-      <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center text-blue-700">
-        <p class="font-medium">Fixtures not yet loaded.</p>
-        <p class="text-sm mt-1">Run the fixture scraper to populate this page.</p>
-      </div>
-    )}
+    <div id="fixture-loading" class="text-center py-16 text-gray-400 text-sm">Loading fixtures…</div>
+    <div id="fixture-error"   class="hidden bg-red-50 border border-red-200 rounded-xl p-6 text-center text-red-700">
+      <p class="font-medium">Could not load fixtures.</p>
+      <p class="text-sm mt-1">Please try refreshing the page.</p>
+    </div>
+    <div id="fixture-output"  class="hidden"></div>
   </div>
 </Base>
 
 <script>
-  const controls = document.getElementById('fixture-controls');
-  let currentView = 'upcoming';
-  let currentLeague = 'all';
+  const FIXTURES_URL =
+    'https://raw.githubusercontent.com/stockport-badminton/remnants-badminton/main/src/data/fixtures.json';
 
-  function showPanel() {
-    document.querySelectorAll('[data-panel]').forEach((el) => {
-      (el as HTMLElement).classList.add('hidden');
-    });
-    const panel = document.querySelector(`[data-panel="${currentView}-${currentLeague}"]`);
-    panel?.classList.remove('hidden');
+  let allFixtures: Fixture[] = [];
+  let currentView: 'upcoming' | 'results' = 'upcoming';
+  let currentLeague: 'all' | 'stockport' | 'crewe' = 'all';
+
+  interface Fixture {
+    id: string;
+    league: string;
+    date: string;
+    homeTeam: string;
+    awayTeam: string;
+    homeScore: number | null;
+    awayScore: number | null;
+    status: string;
+    isHome: boolean;
+    division: string;
+    result: 'W' | 'L' | 'D' | null;
   }
 
-  function setActive(btns: NodeListOf<Element>, activeAttr: string, val: string) {
-    btns.forEach((btn) => {
-      const isActive = (btn as HTMLElement).dataset[activeAttr] === val;
-      btn.classList.toggle('bg-primary', isActive);
-      btn.classList.toggle('text-white', isActive);
-      btn.classList.toggle('bg-white', !isActive);
-      btn.classList.toggle('text-gray-600', !isActive);
+  function esc(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString('en-GB', {
+      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
     });
   }
 
-  controls?.querySelectorAll('.view-btn').forEach((btn) => {
+  function isRemnants(name: string) {
+    return name.toLowerCase().includes('remnants');
+  }
+
+  function resultBadge(result: string | null, status: string) {
+    if (status === 'outstanding') return { text: 'TBD', cls: 'bg-gray-100 text-gray-600' };
+    if (!result) return { text: '–', cls: 'bg-gray-100 text-gray-600' };
+    const map: Record<string, { text: string; cls: string }> = {
+      W: { text: 'Win',  cls: 'bg-green-100 text-green-800' },
+      L: { text: 'Loss', cls: 'bg-red-100 text-red-800' },
+      D: { text: 'Draw', cls: 'bg-yellow-100 text-yellow-800' },
+    };
+    return map[result] ?? { text: result, cls: 'bg-gray-100 text-gray-600' };
+  }
+
+  function renderTable() {
+    const now = new Date();
+    let filtered = allFixtures.filter((f) => {
+      const d = new Date(f.date);
+      return currentView === 'upcoming'
+        ? d >= now && f.status === 'outstanding'
+        : d < now || f.status !== 'outstanding';
+    });
+
+    if (currentLeague !== 'all') {
+      filtered = filtered.filter((f) => f.league.toLowerCase() === currentLeague);
+    }
+
+    filtered.sort((a, b) => {
+      const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
+      return currentView === 'upcoming' ? diff : -diff;
+    });
+
+    const output = document.getElementById('fixture-output')!;
+
+    if (filtered.length === 0) {
+      output.innerHTML = `<p class="text-gray-500 text-center py-12">${
+        currentView === 'upcoming' ? 'No upcoming fixtures found.' : 'No results found.'
+      }</p>`;
+      return;
+    }
+
+    const rows = filtered.map((f, i) => {
+      const badge = resultBadge(f.result, f.status);
+      const score = f.homeScore !== null && f.awayScore !== null
+        ? `${f.homeScore} – ${f.awayScore}` : 'vs';
+      const homeCls = isRemnants(f.homeTeam) ? 'text-primary' : 'text-gray-800';
+      const awayCls = isRemnants(f.awayTeam) ? 'text-primary' : 'text-gray-800';
+      const rowBg  = i % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      return `
+        <tr class="border-t border-gray-100 ${rowBg}">
+          <td class="px-4 py-3 whitespace-nowrap text-gray-700">${formatDate(f.date)}</td>
+          <td class="px-4 py-3 hidden sm:table-cell">
+            <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">${esc(f.league)}</span>
+          </td>
+          <td class="px-4 py-3 hidden md:table-cell text-gray-600">${esc(f.division)}</td>
+          <td class="px-4 py-3 font-medium ${homeCls}">${esc(f.homeTeam)}</td>
+          <td class="px-4 py-3 text-center font-mono font-semibold text-gray-700">${score}</td>
+          <td class="px-4 py-3 font-medium ${awayCls}">${esc(f.awayTeam)}</td>
+          <td class="px-4 py-3 text-center">
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-semibold ${badge.cls}">${badge.text}</span>
+          </td>
+        </tr>`;
+    }).join('');
+
+    output.innerHTML = `
+      <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-primary text-white text-left">
+              <th class="px-4 py-3 font-semibold">Date</th>
+              <th class="px-4 py-3 font-semibold hidden sm:table-cell">League</th>
+              <th class="px-4 py-3 font-semibold hidden md:table-cell">Division</th>
+              <th class="px-4 py-3 font-semibold">Home</th>
+              <th class="px-4 py-3 font-semibold text-center">Score</th>
+              <th class="px-4 py-3 font-semibold">Away</th>
+              <th class="px-4 py-3 font-semibold text-center">Result</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function setActive(selector: string, attr: string, val: string) {
+    document.querySelectorAll(selector).forEach((btn) => {
+      const el = btn as HTMLElement;
+      const active = el.dataset[attr] === val;
+      el.classList.toggle('bg-primary', active);
+      el.classList.toggle('text-white', active);
+      el.classList.toggle('bg-white', !active);
+      el.classList.toggle('text-gray-600', !active);
+    });
+  }
+
+  // Wire up controls
+  document.querySelectorAll('.view-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      currentView = (btn as HTMLElement).dataset.view!;
-      setActive(controls.querySelectorAll('.view-btn'), 'view', currentView);
-      showPanel();
+      currentView = (btn as HTMLElement).dataset.view as typeof currentView;
+      setActive('.view-btn', 'view', currentView);
+      renderTable();
     });
   });
 
-  controls?.querySelectorAll('.league-btn').forEach((btn) => {
+  document.querySelectorAll('.league-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      currentLeague = (btn as HTMLElement).dataset.league!;
-      setActive(controls.querySelectorAll('.league-btn'), 'league', currentLeague);
-      showPanel();
+      currentLeague = (btn as HTMLElement).dataset.league as typeof currentLeague;
+      setActive('.league-btn', 'league', currentLeague);
+      renderTable();
     });
   });
+
+  // Fetch and initialise
+  fetch(FIXTURES_URL)
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((data) => {
+      allFixtures = data.fixtures ?? [];
+
+      if (data.lastUpdated) {
+        const formatted = new Date(data.lastUpdated).toLocaleString('en-GB', {
+          day: 'numeric', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit',
+        });
+        const el = document.getElementById('last-updated');
+        if (el) el.textContent = `Last updated: ${formatted}`;
+      }
+
+      document.getElementById('fixture-loading')!.classList.add('hidden');
+      document.getElementById('fixture-output')!.classList.remove('hidden');
+      renderTable();
+    })
+    .catch(() => {
+      document.getElementById('fixture-loading')!.classList.add('hidden');
+      document.getElementById('fixture-error')!.classList.remove('hidden');
+    });
 </script>

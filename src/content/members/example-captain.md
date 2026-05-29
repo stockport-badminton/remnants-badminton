@@ -1,6 +1,9 @@
 ---
-name: "Alex Johnson"
-role: "Club Captain"
-bio: "Alex has been playing badminton for over 15 years and has captained the club since 2019. Dangerous at the net and even more dangerous at the post-match bar."
-order: 1
+name: Neil Cooper
+role: Mixed team Captain
+bio: Neil is a nerd (and proud) from both a badminton, but also website
+  perspective. He's played in so many leagues it's embarrasing, and is far too
+  involved in badminton related volunteer stuff.  Oh, and he's the captain of
+  the Crewe Mixed team
+order: 5
 ---
