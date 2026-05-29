@@ -1,0 +1,52 @@
+---
+import { cloudinary } from '../../lib/cloudinary';
+
+interface Props {
+  section: {
+    heading?: string;
+    tag: string;
+  };
+}
+const { section } = Astro.props;
+
+const { resources } = await cloudinary.api.resources_by_tag(section.tag, {
+  context: true,
+  max_results: 50,
+});
+
+function thumbUrl(publicId: string) {
+  return `https://res.cloudinary.com/${import.meta.env.CLOUDINARY_CLOUD_NAME}/image/upload/w_600,h_600,c_fill,q_auto,f_auto/${publicId}`;
+}
+---
+
+<section class="max-w-6xl mx-auto px-4 py-12">
+  {section.heading && (
+    <h2 class="text-3xl font-bold text-primary mb-8">{section.heading}</h2>
+  )}
+
+  {resources.length === 0 ? (
+    <p class="text-gray-500 text-center py-12">No images found for tag "{section.tag}".</p>
+  ) : (
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      {resources.map((image: any) => {
+        const alt     = image.context?.custom?.alt     ?? image.public_id;
+        const caption = image.context?.custom?.caption ?? null;
+        return (
+          <figure class="group relative overflow-hidden rounded-xl bg-gray-100">
+            <img
+              src={thumbUrl(image.public_id)}
+              alt={alt}
+              class="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+            {caption && (
+              <figcaption class="absolute inset-x-0 bottom-0 bg-black/60 text-white text-xs px-3 py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                {caption}
+              </figcaption>
+            )}
+          </figure>
+        );
+      })}
+    </div>
+  )}
+</section>

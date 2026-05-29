@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { sanityClient } from '../lib/sanity';
+import HeroSection    from '../components/sections/HeroSection.astro';
+import AboutSection   from '../components/sections/AboutSection.astro';
+import TextBlock      from '../components/sections/TextBlock.astro';
+import VenueSection   from '../components/sections/VenueSection.astro';
+import MembersGrid    from '../components/sections/MembersGrid.astro';
+import GallerySection from '../components/sections/GallerySection.astro';
+import LinksSection   from '../components/sections/LinksSection.astro';
+
+export const prerender = false;
+
+const SECTION_COMPONENTS = {
+  heroSection:    HeroSection,
+  aboutSection:   AboutSection,
+  textBlock:      TextBlock,
+  venueSection:   VenueSection,
+  membersGrid:    MembersGrid,
+  gallerySection: GallerySection,
+  linksSection:   LinksSection,
+};
+
+const { slug } = Astro.params;
+const page = await sanityClient.fetch(
+  `*[_type == "page" && slug.current == $slug][0]`,
+  { slug }
+);
+
+if (!page) return Astro.redirect('/');
+---
+
+<Base title={page.title}>
+  {(page.sections ?? []).map((section: any) => {
+    const Component = SECTION_COMPONENTS[section._type as keyof typeof SECTION_COMPONENTS];
+    return Component ? <Component section={section} /> : null;
+  })}
+</Base>

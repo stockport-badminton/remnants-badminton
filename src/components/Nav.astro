@@ -1,16 +1,19 @@
 ---
+interface NavLink { href: string; label: string; }
+
 interface Props {
   siteName: string;
+  links?: NavLink[];
 }
-const { siteName } = Astro.props;
-const currentPath = Astro.url.pathname;
 
-const links = [
-  { href: '/', label: 'Home' },
+const { siteName, links = [
+  { href: '/',         label: 'Home' },
   { href: '/fixtures', label: 'Fixtures' },
-  { href: '/members', label: 'Members' },
-  { href: '/contact', label: 'Contact' },
-];
+  { href: '/members',  label: 'Members' },
+  { href: '/contact',  label: 'Contact' },
+]} = Astro.props;
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="bg-primary text-white shadow-lg">

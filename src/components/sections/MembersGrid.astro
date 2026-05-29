@@ -1,0 +1,44 @@
+---
+import { sanityClient } from '../../lib/sanity';
+import MemberCard from '../MemberCard.astro';
+
+interface Props {
+  section: {
+    heading?: string;
+    subheading?: string;
+  };
+}
+const { section } = Astro.props;
+
+const members = await sanityClient.fetch(
+  `*[_type == "member"] | order(order asc)`
+);
+---
+
+<div class="max-w-6xl mx-auto px-4 py-12">
+  <div class="mb-10">
+    <h1 class="text-3xl font-bold text-primary mb-2">
+      {section.heading ?? 'Members'}
+    </h1>
+    {section.subheading && (
+      <p class="text-gray-600">{section.subheading}</p>
+    )}
+  </div>
+
+  {members.length === 0 ? (
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-10 text-center text-gray-500">
+      <p class="font-medium">No members added yet.</p>
+    </div>
+  ) : (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {members.map((member: any) => (
+        <MemberCard
+          name={member.name}
+          role={member.role}
+          bio={member.bio}
+          photo={member.photo}
+        />
+      ))}
+    </div>
+  )}
+</div>
