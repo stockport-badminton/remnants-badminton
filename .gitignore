@@ -1,4 +1,5 @@
 dist/
+.netlify/
 node_modules/
 .astro/
 .env

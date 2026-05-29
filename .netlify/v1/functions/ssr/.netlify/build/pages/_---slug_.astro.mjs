@@ -36,9 +36,9 @@ const $$MembersGrid = createComponent(async ($$result, $$props, $$slots) => {
 }, "/Users/ncooper/remnants-badminton/src/components/sections/MembersGrid.astro", void 0);
 
 v2.config({
-  cloud_name: "hvunsveuh",
-  api_key: "798453632838949",
-  api_secret: "eB7em7UmxX8boyLzXIu7w4d_WYs"
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 const $$Astro$2 = createAstro();
