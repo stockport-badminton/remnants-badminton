@@ -18,7 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT = join(__dirname, '../src/data/fixtures.json');
 
 const STOCKPORT_URL = 'https://stockport-badminton.co.uk/fixtures/club-Remnants';
-const CREWE_URL = 'https://www.crewebadminton.org.uk/default.aspx?pageID=22';
+const CREWE_URL = 'https://www.crewebadminton.org.uk/default.aspx?pageID=22&ClubID=67';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -118,88 +118,55 @@ async function fetchCrewe() {
 
   const fixtures = [];
 
-  // Target the main fixtures table by its known ID on the Crewe site.
-  // Fall back to scanning all tables if the ID changes in future.
-  const tableSelector =
-    '#ctl00_MainContent_ctl00_dgrFixtures, table.table-condensed';
+  // Cheerio splits the ASP.NET malformed HTML so each match becomes a sequence
+  // of 8 consecutive sibling <td>s: [date-cell(id)] [division] [home] [away]
+  // [result] [gamesHome] [gamesAway] [vcal]. Two matches per <tr class="itemrow">.
+  $('#ctl00_MainContent_ctl00_dgrFixtures td[id*="dgrFixtures"]').each((_, cell) => {
+    const $cell = $(cell);
 
-  $(tableSelector).each((_, table) => {
-    // Crewe uses <tr class="headerrow"><td> rather than <thead><th>
-    const headerRow = $(table).find('tr.headerrow').first();
-    const headers = headerRow.length
-      ? headerRow.find('td').map((_, el) => $(el).text().trim().toLowerCase()).get()
-      : $(table).find('th, thead td').map((_, el) => $(el).text().trim().toLowerCase()).get();
+    const dateStr = $cell.find('[id*="txtMatchDate"]').text().trim();
+    // Siblings in order: division, homeTeam, awayTeam, result, gamesHome, gamesAway
+    const s = $cell.nextAll('td');
+    const division = s.eq(0).text().trim();
+    const homeTeam = s.eq(1).text().trim();
+    const awayTeam = s.eq(2).text().trim();
+    const resultText = s.eq(3).text().trim();
+    const gamesHome = parseInt(s.eq(4).text().trim(), 10);
+    const gamesAway = parseInt(s.eq(5).text().trim(), 10);
 
-    const hasFixtureColumns =
-      headers.some((h) => h.includes('home')) &&
-      headers.some((h) => h.includes('away'));
+    if (!dateStr || !homeTeam || !awayTeam) return;
 
-    if (!hasFixtureColumns) return;
+    const isHome = isRemnants(homeTeam);
+    const isAway = isRemnants(awayTeam);
+    if (!isHome && !isAway) return;
 
-    $(table).find('tr').not('.headerrow').each((rowIdx, row) => {
-      const cells = $(row).find('td');
-      if (cells.length < 4) return;
+    const homeScore = !isNaN(gamesHome) ? gamesHome : null;
+    const awayScore = !isNaN(gamesAway) ? gamesAway : null;
+    const status = homeScore !== null && awayScore !== null ? 'complete' : 'outstanding';
 
-      // Try to map cells by header position, fall back to positional
-      let dateStr, division, homeTeam, awayTeam, resultText, gamesHome, gamesAway;
+    // Result text is from the home team's perspective: "Home" = home won, "Away" = away won
+    let result = null;
+    if (status === 'complete' && resultText) {
+      if (resultText === 'Draw') result = 'D';
+      else if (resultText === 'Home') result = isHome ? 'W' : 'L';
+      else if (resultText === 'Away') result = isAway ? 'W' : 'L';
+    }
 
-      if (headers.length >= 4) {
-        const dateIdx = headers.findIndex((h) => h.includes('date'));
-        const divIdx = headers.findIndex((h) => h.includes('div'));
-        const homeIdx = headers.findIndex((h) => h.includes('home'));
-        const awayIdx = headers.findIndex((h) => h.includes('away'));
-        const resultIdx = headers.findIndex((h) => h.includes('result') || h.includes('score'));
+    const parsedDate = parseCreweDate(dateStr);
+    if (!parsedDate) return;
 
-        dateStr = dateIdx >= 0 ? $(cells[dateIdx]).text().trim() : $(cells[0]).text().trim();
-        division = divIdx >= 0 ? $(cells[divIdx]).text().trim() : '';
-        homeTeam = homeIdx >= 0 ? $(cells[homeIdx]).text().trim() : $(cells[2]).text().trim();
-        awayTeam = awayIdx >= 0 ? $(cells[awayIdx]).text().trim() : $(cells[3]).text().trim();
-        resultText = resultIdx >= 0 ? $(cells[resultIdx]).text().trim() : '';
-
-        // Games columns (typically after result)
-        if (resultIdx >= 0 && cells.length > resultIdx + 1) {
-          gamesHome = $(cells[resultIdx + 1]).text().trim();
-          gamesAway = $(cells[resultIdx + 2])?.text().trim();
-        }
-      } else {
-        // Positional fallback: Date | Division | Home | Away | Result | GH | GA
-        dateStr = $(cells[0]).text().trim();
-        division = $(cells[1]).text().trim();
-        homeTeam = $(cells[2]).text().trim();
-        awayTeam = $(cells[3]).text().trim();
-        resultText = $(cells[4])?.text().trim() ?? '';
-        gamesHome = $(cells[5])?.text().trim();
-        gamesAway = $(cells[6])?.text().trim();
-      }
-
-      if (!homeTeam || !awayTeam) return;
-
-      const isHome = isRemnants(homeTeam);
-      const isAway = isRemnants(awayTeam);
-      if (!isHome && !isAway) return;
-
-      const parsedDate = parseCreweDate(dateStr);
-      if (!parsedDate) return;
-
-      // Parse scores: "8 - 10" or "8-10"
-      const scoreMatch = resultText.match(/(\d+)\s*[-–]\s*(\d+)/);
-      const homeScore = scoreMatch ? parseInt(scoreMatch[1], 10) : null;
-      const awayScore = scoreMatch ? parseInt(scoreMatch[2], 10) : null;
-      const status = homeScore !== null ? 'complete' : 'outstanding';
-
-      fixtures.push({
-        id: `crewe-${parsedDate}-${homeTeam.replace(/\s+/g, '-')}`,
-        league: 'Crewe',
-        date: parsedDate,
-        homeTeam,
-        awayTeam,
-        homeScore,
-        awayScore,
-        status,
-        isHome,
-        division: division || 'Crewe League',
-        result: calcResult(isHome, homeScore, awayScore),
-      });
+    fixtures.push({
+      id: `crewe-${parsedDate}-${homeTeam.replace(/\s+/g, '-')}`,
+      league: 'Crewe',
+      date: parsedDate,
+      homeTeam,
+      awayTeam,
+      homeScore,
+      awayScore,
+      status,
+      isHome,
+      division: division || 'Crewe League',
+      result,
     });
   });
 
