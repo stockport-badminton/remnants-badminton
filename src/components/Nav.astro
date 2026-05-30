@@ -18,9 +18,13 @@ const currentPath = Astro.url.pathname;
 
 <header class="bg-primary text-white shadow-lg">
   <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3 group">
-      <span class="text-2xl" aria-hidden="true">🏸</span>
-      <span class="font-bold text-lg leading-tight group-hover:text-accent transition-colors">
+    <a href="/" class="flex items-center group">
+      <img
+        src="/logo.jpg"
+        alt={siteName}
+        class="h-10 w-auto group-hover:opacity-80 transition-opacity rounded"
+      />
+      <span class="pl-2 font-bold text-lg leading-tight group-hover:text-accent transition-colors">
         {siteName}
       </span>
     </a>
