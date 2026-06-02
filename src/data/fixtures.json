@@ -14,10 +14,10 @@
       "result": "D"
     },
     {
-      "id": "crewe-2025-09-12T19:00:00.000Z-North'ch-'A'",
+      "id": "crewe-2025-09-12T19:00:00.000Z-Egerton-'A'",
       "league": "Crewe",
       "date": "2025-09-12T19:00:00.000Z",
-      "homeTeam": "North'ch 'A'",
+      "homeTeam": "Egerton 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 0,
       "awayScore": 18,
@@ -460,7 +460,7 @@
       "league": "Crewe",
       "date": "2026-03-31T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
-      "awayTeam": "North'ch 'A'",
+      "awayTeam": "Egerton 'A'",
       "homeScore": 15,
       "awayScore": 3,
       "status": "complete",
@@ -521,5 +521,5 @@
       "result": "W"
     }
   ],
-  "lastUpdated": "2026-06-01T02:54:13.300Z"
+  "lastUpdated": "2026-06-02T02:51:31.061Z"
 }
