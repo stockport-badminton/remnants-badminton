@@ -82,7 +82,7 @@ async function fetchStockport() {
       awayScore,
       status: f.status === 'outstanding' ? 'outstanding' : 'complete',
       isHome,
-      division: f.division ? `Division ${f.division}` : '',
+      division: { 7: 'Premier', 8: 'Division 1', 9: 'Division 2', 10: 'Division 3' }[f.division] ?? `Division ${f.division}`,
       result: calcResult(isHome, homeScore, awayScore),
     });
   }
