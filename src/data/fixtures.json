@@ -1,6 +1,32 @@
 {
   "fixtures": [
     {
+      "id": "crewe-2025-09-02T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2025-09-02T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Canute 'A'",
+      "homeScore": 9,
+      "awayScore": 9,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mens Division 1",
+      "result": "D"
+    },
+    {
+      "id": "crewe-2025-09-12T19:00:00.000Z-Egerton-'A'",
+      "league": "Crewe",
+      "date": "2025-09-12T19:00:00.000Z",
+      "homeTeam": "Egerton 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 0,
+      "awayScore": 18,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
       "id": "stockport-6084",
       "league": "Stockport",
       "date": "2025-09-13T23:00:00.000Z",
@@ -40,6 +66,32 @@
       "result": "L"
     },
     {
+      "id": "crewe-2025-09-30T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2025-09-30T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Knutsford  'A'",
+      "homeScore": 16,
+      "awayScore": 2,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2025-10-02T19:00:00.000Z-Cegelec-'A'",
+      "league": "Crewe",
+      "date": "2025-10-02T19:00:00.000Z",
+      "homeTeam": "Cegelec 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 9,
+      "awayScore": 9,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mixed Division 1",
+      "result": "D"
+    },
+    {
       "id": "stockport-6049",
       "league": "Stockport",
       "date": "2025-10-06T23:00:00.000Z",
@@ -51,6 +103,71 @@
       "isHome": true,
       "division": "Division 7",
       "result": "W"
+    },
+    {
+      "id": "crewe-2025-10-09T19:00:00.000Z-Canute-'A'",
+      "league": "Crewe",
+      "date": "2025-10-09T19:00:00.000Z",
+      "homeTeam": "Canute 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 6,
+      "awayScore": 12,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mens Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2025-10-14T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2025-10-14T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Crosses 'A'",
+      "homeScore": 10,
+      "awayScore": 8,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mens Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2025-10-17T19:00:00.000Z-Goostrey-'A'",
+      "league": "Crewe",
+      "date": "2025-10-17T19:00:00.000Z",
+      "homeTeam": "Goostrey 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 2,
+      "awayScore": 16,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2025-10-20T19:00:00.000Z-Welsh-R-'A'",
+      "league": "Crewe",
+      "date": "2025-10-20T19:00:00.000Z",
+      "homeTeam": "Welsh R 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 11,
+      "awayScore": 7,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mens Division 1",
+      "result": "L"
+    },
+    {
+      "id": "crewe-2025-10-28T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2025-10-28T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Whitfield 'A'",
+      "homeScore": 5,
+      "awayScore": 13,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mens Division 1",
+      "result": "L"
     },
     {
       "id": "stockport-6086",
@@ -66,6 +183,19 @@
       "result": "L"
     },
     {
+      "id": "crewe-2025-11-05T19:00:00.000Z-Crosses-'A'",
+      "league": "Crewe",
+      "date": "2025-11-05T19:00:00.000Z",
+      "homeTeam": "Crosses 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 4,
+      "awayScore": 14,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
       "id": "stockport-6087",
       "league": "Stockport",
       "date": "2025-11-10T00:00:00.000Z",
@@ -76,6 +206,45 @@
       "status": "complete",
       "isHome": false,
       "division": "Division 7",
+      "result": "L"
+    },
+    {
+      "id": "crewe-2025-11-11T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2025-11-11T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Alsager 'A'",
+      "homeScore": 10,
+      "awayScore": 8,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mens Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2025-11-25T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2025-11-25T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Knutsford  'A'",
+      "homeScore": 17,
+      "awayScore": 1,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mens Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2025-12-01T19:00:00.000Z-Welsh-R-'A'",
+      "league": "Crewe",
+      "date": "2025-12-01T19:00:00.000Z",
+      "homeTeam": "Welsh R 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 13,
+      "awayScore": 5,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mixed Division 1",
       "result": "L"
     },
     {
@@ -90,6 +259,19 @@
       "isHome": false,
       "division": "Division 7",
       "result": "L"
+    },
+    {
+      "id": "crewe-2025-12-15T19:00:00.000Z-Whitfield-'A'",
+      "league": "Crewe",
+      "date": "2025-12-15T19:00:00.000Z",
+      "homeTeam": "Whitfield 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 7,
+      "awayScore": 11,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mens Division 1",
+      "result": "W"
     },
     {
       "id": "stockport-6088",
@@ -131,6 +313,32 @@
       "result": "L"
     },
     {
+      "id": "crewe-2026-01-20T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2026-01-20T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Goostrey 'A'",
+      "homeScore": 16,
+      "awayScore": 2,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2026-01-27T19:00:00.000Z-Knutsford-'A'",
+      "league": "Crewe",
+      "date": "2026-01-27T19:00:00.000Z",
+      "homeTeam": "Knutsford  'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 7,
+      "awayScore": 11,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mens Division 1",
+      "result": "W"
+    },
+    {
       "id": "stockport-6081",
       "league": "Stockport",
       "date": "2026-01-29T00:00:00.000Z",
@@ -144,6 +352,19 @@
       "result": "L"
     },
     {
+      "id": "crewe-2026-02-03T19:00:00.000Z-Knutsford-'A'",
+      "league": "Crewe",
+      "date": "2026-02-03T19:00:00.000Z",
+      "homeTeam": "Knutsford  'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 0,
+      "awayScore": 18,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
       "id": "stockport-6057",
       "league": "Stockport",
       "date": "2026-02-10T00:00:00.000Z",
@@ -155,6 +376,19 @@
       "isHome": true,
       "division": "Division 7",
       "result": "L"
+    },
+    {
+      "id": "crewe-2026-02-13T19:00:00.000Z-Alsager-'A'",
+      "league": "Crewe",
+      "date": "2026-02-13T19:00:00.000Z",
+      "homeTeam": "Alsager 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 2,
+      "awayScore": 16,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mens Division 1",
+      "result": "W"
     },
     {
       "id": "stockport-6041",
@@ -183,6 +417,32 @@
       "result": "L"
     },
     {
+      "id": "crewe-2026-03-03T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2026-03-03T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Cegelec 'A'",
+      "homeScore": 17,
+      "awayScore": 1,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2026-03-10T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2026-03-10T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Welsh R 'A'",
+      "homeScore": 5,
+      "awayScore": 13,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mixed Division 1",
+      "result": "L"
+    },
+    {
       "id": "stockport-6073",
       "league": "Stockport",
       "date": "2026-03-24T00:00:00.000Z",
@@ -196,6 +456,45 @@
       "result": "L"
     },
     {
+      "id": "crewe-2026-03-31T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2026-03-31T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Egerton 'A'",
+      "homeScore": 15,
+      "awayScore": 3,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2026-04-08T19:00:00.000Z-Crosses-'A'",
+      "league": "Crewe",
+      "date": "2026-04-08T19:00:00.000Z",
+      "homeTeam": "Crosses 'A'",
+      "awayTeam": "Remnants 'A'",
+      "homeScore": 4,
+      "awayScore": 14,
+      "status": "complete",
+      "isHome": false,
+      "division": "Mens Division 1",
+      "result": "W"
+    },
+    {
+      "id": "crewe-2026-04-14T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2026-04-14T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Crosses 'A'",
+      "homeScore": 11,
+      "awayScore": 7,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mixed Division 1",
+      "result": "W"
+    },
+    {
       "id": "stockport-6085",
       "league": "Stockport",
       "date": "2026-04-14T23:00:00.000Z",
@@ -207,7 +506,20 @@
       "isHome": false,
       "division": "Division 7",
       "result": "L"
+    },
+    {
+      "id": "crewe-2026-04-21T19:00:00.000Z-Remnants-'A'",
+      "league": "Crewe",
+      "date": "2026-04-21T19:00:00.000Z",
+      "homeTeam": "Remnants 'A'",
+      "awayTeam": "Welsh R 'A'",
+      "homeScore": 11,
+      "awayScore": 7,
+      "status": "complete",
+      "isHome": true,
+      "division": "Mens Division 1",
+      "result": "W"
     }
   ],
-  "lastUpdated": "2026-06-06T02:30:50.207Z"
+  "lastUpdated": "2026-06-07T02:49:34.766Z"
 }
