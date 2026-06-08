@@ -1,9 +1,9 @@
 {
   "fixtures": [
     {
-      "id": "crewe-2025-09-02T18:00:00.000Z-Remnants-'A'",
+      "id": "crewe-2025-09-02T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
-      "date": "2025-09-02T18:00:00.000Z",
+      "date": "2025-09-02T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Canute 'A'",
       "homeScore": 9,
@@ -14,9 +14,9 @@
       "result": "D"
     },
     {
-      "id": "crewe-2025-09-12T18:00:00.000Z-Egerton-'A'",
+      "id": "crewe-2025-09-12T19:00:00.000Z-Egerton-'A'",
       "league": "Crewe",
-      "date": "2025-09-12T18:00:00.000Z",
+      "date": "2025-09-12T19:00:00.000Z",
       "homeTeam": "Egerton 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 0,
@@ -66,9 +66,9 @@
       "result": "L"
     },
     {
-      "id": "crewe-2025-09-30T18:00:00.000Z-Remnants-'A'",
+      "id": "crewe-2025-09-30T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
-      "date": "2025-09-30T18:00:00.000Z",
+      "date": "2025-09-30T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Knutsford  'A'",
       "homeScore": 16,
@@ -79,9 +79,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2025-10-02T18:00:00.000Z-Cegelec-'A'",
+      "id": "crewe-2025-10-02T19:00:00.000Z-Cegelec-'A'",
       "league": "Crewe",
-      "date": "2025-10-02T18:00:00.000Z",
+      "date": "2025-10-02T19:00:00.000Z",
       "homeTeam": "Cegelec 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 9,
@@ -105,9 +105,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2025-10-09T18:00:00.000Z-Canute-'A'",
+      "id": "crewe-2025-10-09T19:00:00.000Z-Canute-'A'",
       "league": "Crewe",
-      "date": "2025-10-09T18:00:00.000Z",
+      "date": "2025-10-09T19:00:00.000Z",
       "homeTeam": "Canute 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 6,
@@ -118,9 +118,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2025-10-14T18:00:00.000Z-Remnants-'A'",
+      "id": "crewe-2025-10-14T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
-      "date": "2025-10-14T18:00:00.000Z",
+      "date": "2025-10-14T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Crosses 'A'",
       "homeScore": 10,
@@ -131,9 +131,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2025-10-17T18:00:00.000Z-Goostrey-'A'",
+      "id": "crewe-2025-10-17T19:00:00.000Z-Goostrey-'A'",
       "league": "Crewe",
-      "date": "2025-10-17T18:00:00.000Z",
+      "date": "2025-10-17T19:00:00.000Z",
       "homeTeam": "Goostrey 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 2,
@@ -144,9 +144,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2025-10-20T18:00:00.000Z-Welsh-R-'A'",
+      "id": "crewe-2025-10-20T19:00:00.000Z-Welsh-R-'A'",
       "league": "Crewe",
-      "date": "2025-10-20T18:00:00.000Z",
+      "date": "2025-10-20T19:00:00.000Z",
       "homeTeam": "Welsh R 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 11,
@@ -456,11 +456,10 @@
       "result": "L"
     },
     {
-      "id": "crewe-2026-03-31T18:00:00.000Z-Remnants-'A'",
+      "id": "crewe-2026-03-31T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
-      "date": "2026-03-31T18:00:00.000Z",
+      "date": "2026-03-31T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
-      "awayTeam": "Egerton 'A'",
       "awayTeam": "Egerton 'A'",
       "homeScore": 15,
       "awayScore": 3,
@@ -470,9 +469,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2026-04-08T18:00:00.000Z-Crosses-'A'",
+      "id": "crewe-2026-04-08T19:00:00.000Z-Crosses-'A'",
       "league": "Crewe",
-      "date": "2026-04-08T18:00:00.000Z",
+      "date": "2026-04-08T19:00:00.000Z",
       "homeTeam": "Crosses 'A'",
       "awayTeam": "Remnants 'A'",
       "homeScore": 4,
@@ -483,9 +482,9 @@
       "result": "W"
     },
     {
-      "id": "crewe-2026-04-14T18:00:00.000Z-Remnants-'A'",
+      "id": "crewe-2026-04-14T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
-      "date": "2026-04-14T18:00:00.000Z",
+      "date": "2026-04-14T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Crosses 'A'",
       "homeScore": 11,
@@ -509,9 +508,9 @@
       "result": "L"
     },
     {
-      "id": "crewe-2026-04-21T18:00:00.000Z-Remnants-'A'",
+      "id": "crewe-2026-04-21T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
-      "date": "2026-04-21T18:00:00.000Z",
+      "date": "2026-04-21T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Welsh R 'A'",
       "homeScore": 11,
@@ -522,5 +521,5 @@
       "result": "W"
     }
   ],
-  "lastUpdated": "2026-06-07T20:45:03.384Z"
+  "lastUpdated": "2026-06-08T02:52:31.634Z"
 }
