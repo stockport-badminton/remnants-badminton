@@ -181,10 +181,16 @@ async function fetchCrewe() {
 // accumulates a historical archive instead of only ever showing the live season.
 // The league sites drop old seasons once a new one starts; anything older than
 // the earliest freshly-scraped fixture is kept from the existing data.
+//
+// Re-scraped fixtures (same id) are always represented by their fresh version,
+// never archived — otherwise a fixture whose date moves earlier (e.g. Stockport
+// lists new-season fixtures under a 1-Aug placeholder before real dates are set)
+// would leave a stale duplicate behind once the real date is published.
 function archiveAndMerge(scraped, existing) {
   if (!scraped.length) return existing;
   const earliest = scraped.reduce((min, f) => (f.date < min ? f.date : min), scraped[0].date);
-  const archived = existing.filter((f) => f.date < earliest);
+  const scrapedIds = new Set(scraped.map((f) => f.id));
+  const archived = existing.filter((f) => f.date < earliest && !scrapedIds.has(f.id));
   return [...archived, ...scraped];
 }
 
