@@ -19,6 +19,7 @@ import Base from '../layouts/Base.astro';
         <button data-league="stockport" class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Stockport</button>
         <button data-league="crewe"     class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Crewe</button>
       </div>
+      <select id="season-select" class="hidden rounded-lg border border-gray-200 shadow-sm px-4 py-2 text-sm font-medium text-gray-600 bg-white cursor-pointer" aria-label="Season"></select>
     </div>
 
     <div id="fixture-loading" class="text-center py-16 text-gray-400 text-sm">Loading fixtures…</div>
@@ -37,6 +38,7 @@ import Base from '../layouts/Base.astro';
   let allFixtures: Fixture[] = [];
   let currentView: 'upcoming' | 'results' = 'upcoming';
   let currentLeague: 'all' | 'stockport' | 'crewe' = 'all';
+  let currentSeason = 'all';
 
   interface Fixture {
     id: string;
@@ -66,6 +68,14 @@ import Base from '../layouts/Base.astro';
     return name.toLowerCase().includes('remnants');
   }
 
+  // Badminton season runs Sep–May, spanning two calendar years. A fixture in
+  // Jul–Dec belongs to the season starting that year; Jan–Jun to the previous.
+  function seasonOf(dateStr: string) {
+    const d = new Date(dateStr);
+    const startYear = d.getMonth() + 1 >= 7 ? d.getFullYear() : d.getFullYear() - 1;
+    return `${startYear}/${String((startYear + 1) % 100).padStart(2, '0')}`;
+  }
+
   function resultBadge(result: string | null, status: string) {
     if (status === 'outstanding') return { text: 'TBD', cls: 'bg-gray-100 text-gray-600' };
     if (!result) return { text: '–', cls: 'bg-gray-100 text-gray-600' };
@@ -77,34 +87,8 @@ import Base from '../layouts/Base.astro';
     return map[result] ?? { text: result, cls: 'bg-gray-100 text-gray-600' };
   }
 
-  function renderTable() {
-    const now = new Date();
-    let filtered = allFixtures.filter((f) => {
-      const d = new Date(f.date);
-      return currentView === 'upcoming'
-        ? d >= now && f.status === 'outstanding'
-        : d < now || f.status !== 'outstanding';
-    });
-
-    if (currentLeague !== 'all') {
-      filtered = filtered.filter((f) => f.league.toLowerCase() === currentLeague);
-    }
-
-    filtered.sort((a, b) => {
-      const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
-      return currentView === 'upcoming' ? diff : -diff;
-    });
-
-    const output = document.getElementById('fixture-output')!;
-
-    if (filtered.length === 0) {
-      output.innerHTML = `<p class="text-gray-500 text-center py-12">${
-        currentView === 'upcoming' ? 'No upcoming fixtures found.' : 'No results found.'
-      }</p>`;
-      return;
-    }
-
-    const rows = filtered.map((f, i) => {
+  function buildRows(list: Fixture[]) {
+    return list.map((f, i) => {
       const badge = resultBadge(f.result, f.status);
       const score = f.homeScore !== null && f.awayScore !== null
         ? `${f.homeScore} – ${f.awayScore}` : 'vs';
@@ -126,8 +110,10 @@ import Base from '../layouts/Base.astro';
           </td>
         </tr>`;
     }).join('');
+  }
 
-    output.innerHTML = `
+  function tableHtml(rowsHtml: string) {
+    return `
       <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
         <table class="w-full text-sm">
           <thead>
@@ -141,9 +127,84 @@ import Base from '../layouts/Base.astro';
               <th class="px-4 py-3 font-semibold text-center">Result</th>
             </tr>
           </thead>
-          <tbody>${rows}</tbody>
+          <tbody>${rowsHtml}</tbody>
         </table>
       </div>`;
+  }
+
+  function emptyMsg() {
+    return `<p class="text-gray-500 text-center py-12">${
+      currentView === 'upcoming' ? 'No upcoming fixtures found.' : 'No results found.'
+    }</p>`;
+  }
+
+  function renderTable() {
+    const now = new Date();
+    let filtered = allFixtures.filter((f) => {
+      const d = new Date(f.date);
+      return currentView === 'upcoming'
+        ? d >= now && f.status === 'outstanding'
+        : d < now || f.status !== 'outstanding';
+    });
+
+    if (currentLeague !== 'all') {
+      filtered = filtered.filter((f) => f.league.toLowerCase() === currentLeague);
+    }
+
+    const output = document.getElementById('fixture-output')!;
+
+    // Results view can be split by season; upcoming is inherently the live season.
+    if (currentView === 'results' && currentSeason === 'all') {
+      const groups = new Map<string, Fixture[]>();
+      for (const f of filtered) {
+        const s = seasonOf(f.date);
+        (groups.get(s) ?? groups.set(s, []).get(s)!).push(f);
+      }
+      const seasons = [...groups.keys()].sort().reverse();
+      if (seasons.length === 0) { output.innerHTML = emptyMsg(); return; }
+      output.innerHTML = seasons.map((s) => {
+        const list = groups.get(s)!
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        return `<section class="mb-10">
+          <h2 class="text-xl font-bold text-primary mb-3">${esc(s)} season</h2>
+          ${tableHtml(buildRows(list))}
+        </section>`;
+      }).join('');
+      return;
+    }
+
+    if (currentView === 'results') {
+      filtered = filtered.filter((f) => seasonOf(f.date) === currentSeason);
+    }
+
+    filtered.sort((a, b) => {
+      const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
+      return currentView === 'upcoming' ? diff : -diff;
+    });
+
+    if (filtered.length === 0) { output.innerHTML = emptyMsg(); return; }
+    output.innerHTML = tableHtml(buildRows(filtered));
+  }
+
+  function populateSeasons() {
+    // The selector only governs the Results view, so list seasons that actually
+    // have results and default to the most recent of those.
+    const now = new Date();
+    const seasons = [...new Set(
+      allFixtures
+        .filter((f) => new Date(f.date) < now || f.status !== 'outstanding')
+        .map((f) => seasonOf(f.date))
+    )].sort().reverse();
+    const sel = document.getElementById('season-select') as HTMLSelectElement;
+    sel.innerHTML =
+      seasons.map((s) => `<option value="${esc(s)}">${esc(s)} season</option>`).join('') +
+      '<option value="all">All seasons</option>';
+    currentSeason = seasons[0] ?? 'all';
+    sel.value = currentSeason;
+  }
+
+  function updateSeasonVisibility() {
+    document.getElementById('season-select')!.classList.toggle('hidden', currentView !== 'results');
   }
 
   function setActive(selector: string, attr: string, val: string) {
@@ -162,8 +223,14 @@ import Base from '../layouts/Base.astro';
     btn.addEventListener('click', () => {
       currentView = (btn as HTMLElement).dataset.view as typeof currentView;
       setActive('.view-btn', 'view', currentView);
+      updateSeasonVisibility();
       renderTable();
     });
+  });
+
+  document.getElementById('season-select')!.addEventListener('change', (e) => {
+    currentSeason = (e.target as HTMLSelectElement).value;
+    renderTable();
   });
 
   document.querySelectorAll('.league-btn').forEach((btn) => {
@@ -182,6 +249,8 @@ import Base from '../layouts/Base.astro';
     })
     .then((data) => {
       allFixtures = data.fixtures ?? [];
+      populateSeasons();
+      updateSeasonVisibility();
 
       if (data.lastUpdated) {
         const formatted = new Date(data.lastUpdated).toLocaleString('en-GB', {

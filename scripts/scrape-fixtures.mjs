@@ -140,9 +140,12 @@ async function fetchCrewe() {
     const isAway = isRemnants(awayTeam);
     if (!isHome && !isAway) return;
 
-    const homeScore = !isNaN(gamesHome) ? gamesHome : null;
-    const awayScore = !isNaN(gamesAway) ? gamesAway : null;
-    const status = homeScore !== null && awayScore !== null ? 'complete' : 'outstanding';
+    // Crewe lists not-yet-played fixtures as 0–0. A real match totals 18 games,
+    // so a 0–0 is never a genuine result — treat it as an outstanding fixture.
+    const played = !isNaN(gamesHome) && !isNaN(gamesAway) && (gamesHome > 0 || gamesAway > 0);
+    const homeScore = played ? gamesHome : null;
+    const awayScore = played ? gamesAway : null;
+    const status = played ? 'complete' : 'outstanding';
 
     // Result text is from the home team's perspective: "Home" = home won, "Away" = away won
     let result = null;
@@ -172,6 +175,17 @@ async function fetchCrewe() {
 
   console.log(`  → ${fixtures.length} Crewe fixtures`);
   return fixtures;
+}
+
+// Preserve past-season fixtures that predate the current live feed, so the site
+// accumulates a historical archive instead of only ever showing the live season.
+// The league sites drop old seasons once a new one starts; anything older than
+// the earliest freshly-scraped fixture is kept from the existing data.
+function archiveAndMerge(scraped, existing) {
+  if (!scraped.length) return existing;
+  const earliest = scraped.reduce((min, f) => (f.date < min ? f.date : min), scraped[0].date);
+  const archived = existing.filter((f) => f.date < earliest);
+  return [...archived, ...scraped];
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
@@ -208,7 +222,10 @@ async function main() {
     anyError = true;
   }
 
-  const combined = [...stockportFixtures, ...creweFixtures].sort(
+  const stockport = archiveAndMerge(stockportFixtures, existingStockport);
+  const crewe = archiveAndMerge(creweFixtures, existingCrewe);
+
+  const combined = [...stockport, ...crewe].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
