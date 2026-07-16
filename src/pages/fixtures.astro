@@ -241,8 +241,11 @@ import Base from '../layouts/Base.astro';
     });
   });
 
-  // Fetch and initialise
-  fetch(FIXTURES_URL)
+  // Fetch and initialise.
+  // `cache: 'no-cache'` forces the browser to revalidate against the server
+  // (via ETag) on every load, so freshly-scraped fixtures show immediately
+  // instead of a stale cached copy lingering until the cache expires.
+  fetch(FIXTURES_URL, { cache: 'no-cache' })
     .then((r) => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
