@@ -225,7 +225,8 @@ function buildIcs(fixtures, calName, stampIso) {
     if (f.venue) out.push(fold(`LOCATION:${esc(f.venue)}`));
     out.push(fold(`DESCRIPTION:${esc(description(f))}`));
     if (f.mapUrl) out.push(fold(`URL:${esc(f.mapUrl)}`));
-    out.push('TRANSP:TRANSPARENT');
+    out.push('TRANSP:OPAQUE');                 // show as Busy (blocks time)
+    out.push('X-MICROSOFT-CDO-BUSYSTATUS:BUSY'); // same for Outlook
     out.push('END:VEVENT');
   }
   out.push('END:VCALENDAR');
