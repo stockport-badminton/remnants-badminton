@@ -1,0 +1,510 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//sdbl//personal-badminton-cal//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Badminton — Mine
+BEGIN:VEVENT
+UID:tameside-6039@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260906
+DTEND;VALUE=DATE:20260907
+SUMMARY:Tameside · Division 1 · Hyde B (A) v Syddal Park A
+LOCATION:Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8
+ 
+  7JY
+DESCRIPTION:Tameside Division 1: Syddal Park A v Hyde B (away)\nVenue: Chea
+ 
+ dle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8 7JY\nMap
+ : h
+ ttps://goo.gl/maps/EaY8Z8CjtBU2
+URL:https://goo.gl/maps/EaY8Z8CjtBU2
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-09-08-remnants-a-canute-b@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260908
+DTEND;VALUE=DATE:20260909
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Canute B
+DESCRIPTION:Crewe Mens 1: Remnants A v Canute B (home)\nVenue/time: check t
+ 
+ he league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6051@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260923
+DTEND;VALUE=DATE:20260924
+SUMMARY:Tameside · Division 1 · Hyde B (H) v College Green A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v College Green A (home)\nVenue: As
+ 
+ tley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https
+ ://
+ maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-09-29-remnants-a-goostrey-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260929
+DTEND;VALUE=DATE:20260930
+SUMMARY:Crewe · Hybrid 1 · Remnants A (H) v Goostrey A
+DESCRIPTION:Crewe Hybrid 1: Remnants A v Goostrey A (home)\nVenue/time: che
+ 
+ ck the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6147@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260930
+DTEND;VALUE=DATE:20261001
+SUMMARY:Tameside · Division 1 · Hyde B (A) v Shell A
+LOCATION:Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8
+ 
+  7JY
+DESCRIPTION:Tameside Division 1: Shell A v Hyde B (away)\nVenue: Cheadle Hu
+ 
+ lme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8 7JY\nMap: http
+ s:/
+ /goo.gl/maps/EaY8Z8CjtBU2
+URL:https://goo.gl/maps/EaY8Z8CjtBU2
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-10-06-remnants-a-alsager-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261006
+DTEND;VALUE=DATE:20261007
+SUMMARY:Crewe · Hybrid 1 · Remnants A (H) v Alsager A
+DESCRIPTION:Crewe Hybrid 1: Remnants A v Alsager A (home)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6059@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261007
+DTEND;VALUE=DATE:20261008
+SUMMARY:Tameside · Division 1 · Hyde B (H) v GHAP B
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v GHAP B (home)\nVenue: Astley Spor
+ 
+ ts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.a
+ pp.
+ goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6064@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261016
+SUMMARY:Tameside · Division 1 · Hyde B (A) v College Green A
+LOCATION:Macclesfield Leisure Centre\, Priory Lane\, Macclesfield\, Cheshir
+ 
+ e\, SK10 4AF
+DESCRIPTION:Tameside Division 1: College Green A v Hyde B (away)\nVenue: Ma
+ 
+ cclesfield Leisure Centre\, Priory Lane\, Macclesfield\, Cheshire\, SK1
+ 0 4
+ AF\nMap: https://goo.gl/maps/8kJEDL7aW2NbM2vr8
+URL:https://goo.gl/maps/8kJEDL7aW2NbM2vr8
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6071@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:Tameside · Division 1 · Hyde B (H) v GHAP A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v GHAP A (home)\nVenue: Astley Spor
+ 
+ ts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.a
+ pp.
+ goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-03-remnants-a-canute-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261103
+DTEND;VALUE=DATE:20261104
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Canute A
+DESCRIPTION:Crewe Mens 1: Remnants A v Canute A (home)\nVenue/time: check t
+ 
+ he league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-09-whitfield-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261109
+DTEND;VALUE=DATE:20261110
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Whitfield A
+DESCRIPTION:Crewe Mens 1: Whitfield A v Remnants A (away)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-10-remnants-a-crosses-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261110
+DTEND;VALUE=DATE:20261111
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Crosses A
+DESCRIPTION:Crewe Mens 1: Remnants A v Crosses A (home)\nVenue/time: check 
+ 
+ the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6078@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+SUMMARY:Tameside · Division 1 · Hyde B (H) v Hyde A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v Hyde A (home)\nVenue: Astley Spor
+ 
+ ts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.a
+ pp.
+ goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-17-remnants-a-cegelec-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261117
+DTEND;VALUE=DATE:20261118
+SUMMARY:Crewe · Hybrid 1 · Remnants A (H) v Cegelec A
+DESCRIPTION:Crewe Hybrid 1: Remnants A v Cegelec A (home)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-20-alsager-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Alsager A
+DESCRIPTION:Crewe Mens 1: Alsager A v Remnants A (away)\nVenue/time: check 
+ 
+ the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-27-alsager-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261127
+DTEND;VALUE=DATE:20261128
+SUMMARY:Crewe · Hybrid 1 · Remnants A (A) v Alsager A
+DESCRIPTION:Crewe Hybrid 1: Alsager A v Remnants A (away)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-11-30-welsh-r-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Crewe · Hybrid 1 · Remnants A (A) v Welsh R A
+DESCRIPTION:Crewe Hybrid 1: Welsh R A v Remnants A (away)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-12-08-remnants-a-crosses-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261208
+DTEND;VALUE=DATE:20261209
+SUMMARY:Crewe · Hybrid 1 · Remnants A (H) v Crosses A
+DESCRIPTION:Crewe Hybrid 1: Remnants A v Crosses A (home)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-12-11-goostrey-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261211
+DTEND;VALUE=DATE:20261212
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Goostrey A
+DESCRIPTION:Crewe Mens 1: Goostrey A v Remnants A (away)\nVenue/time: check
+ 
+  the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2026-12-15-remnants-a-welsh-r-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261216
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Welsh R A
+DESCRIPTION:Crewe Mens 1: Remnants A v Welsh R A (home)\nVenue/time: check 
+ 
+ the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6106@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270106
+DTEND;VALUE=DATE:20270107
+SUMMARY:Tameside · Division 1 · Hyde B (H) v Manchester Edgeley B
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v Manchester Edgeley B (home)\nVenu
+ 
+ e: Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: 
+ htt
+ ps://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-01-18-welsh-r-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270118
+DTEND;VALUE=DATE:20270119
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Welsh R A
+DESCRIPTION:Crewe Mens 1: Welsh R A v Remnants A (away)\nVenue/time: check 
+ 
+ the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6035@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270120
+DTEND;VALUE=DATE:20270121
+SUMMARY:Tameside · Division 1 · Hyde B (H) v Manchester Edgeley A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v Manchester Edgeley A (home)\nVenu
+ 
+ e: Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: 
+ htt
+ ps://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-01-26-remnants-a-whitfield-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270126
+DTEND;VALUE=DATE:20270127
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Whitfield A
+DESCRIPTION:Crewe Mens 1: Remnants A v Whitfield A (home)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6117@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270203
+DTEND;VALUE=DATE:20270204
+SUMMARY:Tameside · Division 1 · Hyde B (H) v Syddal Park A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v Syddal Park A (home)\nVenue: Astl
+ 
+ ey Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https:/
+ /ma
+ ps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-02-04-canute-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270204
+DTEND;VALUE=DATE:20270205
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Canute A
+DESCRIPTION:Crewe Mens 1: Canute A v Remnants A (away)\nVenue/time: check t
+ 
+ he league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-02-11-cegelec-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270211
+DTEND;VALUE=DATE:20270212
+SUMMARY:Crewe · Hybrid 1 · Remnants A (A) v Cegelec A
+DESCRIPTION:Crewe Hybrid 1: Cegelec A v Remnants A (away)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6124@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270217
+DTEND;VALUE=DATE:20270218
+SUMMARY:Tameside · Division 1 · Hyde B (H) v Shell A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde B v Shell A (home)\nVenue: Astley Spo
+ 
+ rts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.
+ app
+ .goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-02-24-crosses-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270224
+DTEND;VALUE=DATE:20270225
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Crosses A
+DESCRIPTION:Crewe Mens 1: Crosses A v Remnants A (away)\nVenue/time: check 
+ 
+ the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-02-25-canute-b-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270225
+DTEND;VALUE=DATE:20270226
+SUMMARY:Crewe · Mens 1 · Remnants A (A) v Canute B
+DESCRIPTION:Crewe Mens 1: Canute B v Remnants A (away)\nVenue/time: check t
+ 
+ he league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6164@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270301
+DTEND;VALUE=DATE:20270302
+SUMMARY:Tameside · Division 1 · Hyde B (A) v GHAP B
+LOCATION:Manchester Communication Academy\, Silchester Drive\, Harpurhey\,\
+ 
+ nManchester M40 8NT
+DESCRIPTION:Tameside Division 1: GHAP B v Hyde B (away)\nVenue: Manchester 
+ 
+ Communication Academy\, Silchester Drive\, Harpurhey\,\nManchester M40 
+ 8NT
+ \nMap: https://maps.app.goo.gl/e1rjwKqCrGRbvaAM6
+URL:https://maps.app.goo.gl/e1rjwKqCrGRbvaAM6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-03-09-remnants-a-alsager-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270309
+DTEND;VALUE=DATE:20270310
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Alsager A
+DESCRIPTION:Crewe Mens 1: Remnants A v Alsager A (home)\nVenue/time: check 
+ 
+ the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-03-11-goostrey-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270311
+DTEND;VALUE=DATE:20270312
+SUMMARY:Crewe · Hybrid 1 · Remnants A (A) v Goostrey A
+DESCRIPTION:Crewe Hybrid 1: Goostrey A v Remnants A (away)\nVenue/time: che
+ 
+ ck the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6165@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270315
+DTEND;VALUE=DATE:20270316
+SUMMARY:Tameside · Division 1 · Hyde B (A) v Manchester Edgeley B
+LOCATION:Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport S
+ 
+ K3 0UP
+DESCRIPTION:Tameside Division 1: Manchester Edgeley B v Hyde B (away)\nVenu
+ 
+ e: Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport SK3
+  0U
+ P\nMap: https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+URL:https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-03-16-remnants-a-welsh-r-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270316
+DTEND;VALUE=DATE:20270317
+SUMMARY:Crewe · Hybrid 1 · Remnants A (H) v Welsh R A
+DESCRIPTION:Crewe Hybrid 1: Remnants A v Welsh R A (home)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-03-23-remnants-a-goostrey-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270323
+DTEND;VALUE=DATE:20270324
+SUMMARY:Crewe · Mens 1 · Remnants A (H) v Goostrey A
+DESCRIPTION:Crewe Mens 1: Remnants A v Goostrey A (home)\nVenue/time: check
+ 
+  the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6131@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270330
+DTEND;VALUE=DATE:20270331
+SUMMARY:Tameside · Division 1 · Hyde B (A) v GHAP A
+LOCATION:Old Trafford Sports Barn\, Seymour Park\, Carver Street\, Manchest
+ 
+ er\, M16 9PQ
+DESCRIPTION:Tameside Division 1: GHAP A v Hyde B (away)\nVenue: Old Traffor
+ 
+ d Sports Barn\, Seymour Park\, Carver Street\, Manchester\, M16 9PQ\nMa
+ p: 
+ https://goo.gl/maps/VTrEC5axjxo
+URL:https://goo.gl/maps/VTrEC5axjxo
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6146@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270421
+DTEND;VALUE=DATE:20270422
+SUMMARY:Tameside · Division 1 · Hyde B (A) v Manchester Edgeley A
+LOCATION:Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport S
+ 
+ K3 0UP
+DESCRIPTION:Tameside Division 1: Manchester Edgeley A v Hyde B (away)\nVenu
+ 
+ e: Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport SK3
+  0U
+ P\nMap: https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+URL:https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-2027-04-28-crosses-a-remnants-a@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270428
+DTEND;VALUE=DATE:20270429
+SUMMARY:Crewe · Hybrid 1 · Remnants A (A) v Crosses A
+DESCRIPTION:Crewe Hybrid 1: Crosses A v Remnants A (away)\nVenue/time: chec
+ 
+ k the league site
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

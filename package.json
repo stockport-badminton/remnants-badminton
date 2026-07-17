@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "scrape": "node scripts/scrape-fixtures.mjs"
+    "scrape": "node scripts/scrape-fixtures.mjs",
+    "calendars": "node scripts/build-calendars.mjs"
   },
   "dependencies": {
     "@astrojs/netlify": "^5.5.4",

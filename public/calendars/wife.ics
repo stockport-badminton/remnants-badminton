@@ -1,0 +1,510 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//sdbl//personal-badminton-cal//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Badminton — Wife
+BEGIN:VEVENT
+UID:tameside-6044@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260910
+DTEND;VALUE=DATE:20260911
+SUMMARY:Tameside · Division 1 · Hyde A (A) v College Green A
+LOCATION:Macclesfield Leisure Centre\, Priory Lane\, Macclesfield\, Cheshir
+ 
+ e\, SK10 4AF
+DESCRIPTION:Tameside Division 1: College Green A v Hyde A (away)\nVenue: Ma
+ 
+ cclesfield Leisure Centre\, Priory Lane\, Macclesfield\, Cheshire\, SK1
+ 0 4
+ AF\nMap: https://goo.gl/maps/8kJEDL7aW2NbM2vr8
+URL:https://goo.gl/maps/8kJEDL7aW2NbM2vr8
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7250@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Featherforce B
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Featherforce B (home)\nVenue
+ 
+ : Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://m
+ aps
+ .app.goo.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7208@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Parrswood A
+LOCATION:Parrswood Sports Centre\, Parrswood High School\, Wilmslow Road\, 
+ 
+ East Didsbury\, M20 5PG
+DESCRIPTION:Stockport Division 1: Parrswood A v Remnants A (away)\nVenue: P
+ 
+ arrswood Sports Centre\, Parrswood High School\, Wilmslow Road\, East D
+ ids
+ bury\, M20 5PG\nMap: https://goo.gl/maps/3qRUW35DYRK2
+URL:https://goo.gl/maps/3qRUW35DYRK2
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7232@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20260930
+DTEND;VALUE=DATE:20261001
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Dome A
+LOCATION:William Hulme Grammar School\, Spring Bridge Road\, Whalley Range\
+ 
+ , M16 8PR
+DESCRIPTION:Stockport Division 1: Dome A v Remnants A (away)\nVenue: Willia
+ 
+ m Hulme Grammar School\, Spring Bridge Road\, Whalley Range\, M16 8PR\n
+ Map
+ : https://goo.gl/maps/HjMZA88noFF2
+URL:https://goo.gl/maps/HjMZA88noFF2
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7257@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261007
+DTEND;VALUE=DATE:20261008
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Alderley Park B
+LOCATION:Everybody Sport and Recreation Fitness Centre\, Alderley Park\, Ma
+ 
+ cclesfield\, SK10 4TG. Please use South site entrance (just South of Al
+ der
+ ley Edge bypass). NB this is a new building\, NOT Mulberry's. Overfl
+ ow car
+ park in front of Royal London building.
+DESCRIPTION:Stockport Division 1: Alderley Park B v Remnants A (away)\nVenu
+ 
+ e: Everybody Sport and Recreation Fitness Centre\, Alderley Park\, Macc
+ les
+ field\, SK10 4TG. Please use South site entrance (just South of Alde
+ rley E
+ dge bypass). NB this is a new building\, NOT Mulberry's. Overflow
+  carpark 
+ in front of Royal London building.\nMap: https://maps.app.goo.
+ gl/jxYfweGPA
+ cS1fEaH8
+URL:https://maps.app.goo.gl/jxYfweGPAcS1fEaH8
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7248@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Macclesfield A
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Macclesfield A (home)\nVenue
+ 
+ : Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://m
+ aps
+ .app.goo.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6067@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261021
+DTEND;VALUE=DATE:20261022
+SUMMARY:Tameside · Division 1 · Hyde A (H) v Syddal Park A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v Syddal Park A (home)\nVenue: Astl
+ 
+ ey Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https:/
+ /ma
+ ps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7200@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Shell B
+LOCATION:Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8
+ 
+  7JY
+DESCRIPTION:Stockport Division 1: Shell B v Remnants A (away)\nVenue: Chead
+ 
+ le Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8 7JY\nMap:
+  ht
+ tps://maps.app.goo.gl/ax4pDDKhZBtLnKT87
+URL:https://maps.app.goo.gl/ax4pDDKhZBtLnKT87
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6085@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261118
+DTEND;VALUE=DATE:20261119
+SUMMARY:Tameside · Division 1 · Hyde A (A) v Manchester Edgeley A
+LOCATION:Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport S
+ 
+ K3 0UP
+DESCRIPTION:Tameside Division 1: Manchester Edgeley A v Hyde A (away)\nVenu
+ 
+ e: Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport SK3
+  0U
+ P\nMap: https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+URL:https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6088@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261125
+DTEND;VALUE=DATE:20261126
+SUMMARY:Tameside · Division 1 · Hyde A (H) v Hyde B
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v Hyde B (home)\nVenue: Astley Spor
+ 
+ ts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.a
+ pp.
+ goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7247@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261201
+DTEND;VALUE=DATE:20261202
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Dome A
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Dome A (home)\nVenue: Lymm L
+ 
+ eisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://maps.app.
+ goo
+ .gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6094@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261202
+DTEND;VALUE=DATE:20261203
+SUMMARY:Tameside · Division 1 · Hyde A (H) v GHAP A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v GHAP A (home)\nVenue: Astley Spor
+ 
+ ts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.a
+ pp.
+ goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6103@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20261216
+DTEND;VALUE=DATE:20261217
+SUMMARY:Tameside · Division 1 · Hyde A (H) v GHAP B
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v GHAP B (home)\nVenue: Astley Spor
+ 
+ ts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.a
+ pp.
+ goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6028@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270103
+DTEND;VALUE=DATE:20270104
+SUMMARY:Tameside · Division 1 · Hyde A (A) v Syddal Park A
+LOCATION:Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8
+ 
+  7JY
+DESCRIPTION:Tameside Division 1: Syddal Park A v Hyde A (away)\nVenue: Chea
+ 
+ dle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8 7JY\nMap
+ : h
+ ttps://goo.gl/maps/EaY8Z8CjtBU2
+URL:https://goo.gl/maps/EaY8Z8CjtBU2
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7249@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270105
+DTEND;VALUE=DATE:20270106
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Alderley Park B
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Alderley Park B (home)\nVenu
+ 
+ e: Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://
+ map
+ s.app.goo.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7265@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270107
+DTEND;VALUE=DATE:20270108
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Featherforce B
+LOCATION:Salford City Academy\, Northfleet Rd\, Peel Green\, Eccles\, Manch
+ 
+ ester M30 7PQ
+DESCRIPTION:Stockport Division 1: Featherforce B v Remnants A (away)\nVenue
+ 
+ : Salford City Academy\, Northfleet Rd\, Peel Green\, Eccles\, Manchest
+ er 
+ M30 7PQ\nMap: https://maps.app.goo.gl/xL85FF5QtPLFWjMm9
+URL:https://maps.app.goo.gl/xL85FF5QtPLFWjMm9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6108@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270112
+DTEND;VALUE=DATE:20270113
+SUMMARY:Tameside · Division 1 · Hyde A (A) v GHAP A
+LOCATION:Old Trafford Sports Barn\, Seymour Park\, Carver Street\, Manchest
+ 
+ er\, M16 9PQ
+DESCRIPTION:Tameside Division 1: GHAP A v Hyde A (away)\nVenue: Old Traffor
+ 
+ d Sports Barn\, Seymour Park\, Carver Street\, Manchester\, M16 9PQ\nMa
+ p: 
+ https://goo.gl/maps/VTrEC5axjxo
+URL:https://goo.gl/maps/VTrEC5axjxo
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6112@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270125
+DTEND;VALUE=DATE:20270126
+SUMMARY:Tameside · Division 1 · Hyde A (A) v Manchester Edgeley B
+LOCATION:Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport S
+ 
+ K3 0UP
+DESCRIPTION:Tameside Division 1: Manchester Edgeley B v Hyde A (away)\nVenu
+ 
+ e: Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport SK3
+  0U
+ P\nMap: https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+URL:https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7216@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270131
+DTEND;VALUE=DATE:20270201
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Syddal Park B
+LOCATION:Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8
+ 
+  7JY
+DESCRIPTION:Stockport Division 1: Syddal Park B v Remnants A (away)\nVenue:
+ 
+  Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8 7JY
+ \nM
+ ap: https://maps.app.goo.gl/ax4pDDKhZBtLnKT87
+URL:https://maps.app.goo.gl/ax4pDDKhZBtLnKT87
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7244@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270202
+DTEND;VALUE=DATE:20270203
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Parrswood A
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Parrswood A (home)\nVenue: L
+ 
+ ymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://maps
+ .ap
+ p.goo.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6122@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
+SUMMARY:Tameside · Division 1 · Hyde A (A) v Shell A
+LOCATION:Cheadle Hulme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8
+ 
+  7JY
+DESCRIPTION:Tameside Division 1: Shell A v Hyde A (away)\nVenue: Cheadle Hu
+ 
+ lme High School\, Woods Ln\, Cheadle Hulme\, Cheadle SK8 7JY\nMap: http
+ s:/
+ /goo.gl/maps/EaY8Z8CjtBU2
+URL:https://goo.gl/maps/EaY8Z8CjtBU2
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7240@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270301
+DTEND;VALUE=DATE:20270302
+SUMMARY:Stockport · Division 1 · Remnants A (A) v Macclesfield A
+LOCATION:Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport S
+ 
+ K3 0UP
+DESCRIPTION:Stockport Division 1: Macclesfield A v Remnants A (away)\nVenue
+ 
+ : Avondale Life Leisure\, Heathbank Rd\, Cheadle Heath\, Stockport SK3 
+ 0UP
+ \nMap: https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+URL:https://maps.app.goo.gl/ToXRk2voxNaUkwHn9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7245@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270302
+DTEND;VALUE=DATE:20270303
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Syddal Park B
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Syddal Park B (home)\nVenue:
+ 
+  Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://ma
+ ps.
+ app.goo.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6166@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:Tameside · Division 1 · Hyde A (H) v Shell A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v Shell A (home)\nVenue: Astley Spo
+ 
+ rts College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https://maps.
+ app
+ .goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6167@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270317
+DTEND;VALUE=DATE:20270318
+SUMMARY:Tameside · Division 1 · Hyde A (H) v College Green A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v College Green A (home)\nVenue: As
+ 
+ tley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: https
+ ://
+ maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6135@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270407
+DTEND;VALUE=DATE:20270408
+SUMMARY:Tameside · Division 1 · Hyde A (H) v Manchester Edgeley A
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v Manchester Edgeley A (home)\nVenu
+ 
+ e: Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: 
+ htt
+ ps://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7246@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270413
+DTEND;VALUE=DATE:20270414
+SUMMARY:Stockport · Division 1 · Remnants A (H) v College Green B
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v College Green B (home)\nVenu
+ 
+ e: Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://
+ map
+ s.app.goo.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6137@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270414
+DTEND;VALUE=DATE:20270415
+SUMMARY:Tameside · Division 1 · Hyde A (H) v Manchester Edgeley B
+LOCATION:Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL
+DESCRIPTION:Tameside Division 1: Hyde A v Manchester Edgeley B (home)\nVenu
+ 
+ e: Astley Sports College\, Yew Tree Lane\, Dukinfield\, SK16 5BL\nMap: 
+ htt
+ ps://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+URL:https://maps.app.goo.gl/PXpmbJ5HbRGgRmPm6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7224@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270422
+DTEND;VALUE=DATE:20270423
+SUMMARY:Stockport · Division 1 · Remnants A (A) v College Green B
+LOCATION:Priory Lane\, Macclesfield\, Cheshire\, SK10 4AF
+DESCRIPTION:Stockport Division 1: College Green B v Remnants A (away)\nVenu
+ 
+ e: Priory Lane\, Macclesfield\, Cheshire\, SK10 4AF\nMap: https://goo.g
+ l/m
+ aps/8kJEDL7aW2NbM2vr8
+URL:https://goo.gl/maps/8kJEDL7aW2NbM2vr8
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:tameside-6141@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270426
+DTEND;VALUE=DATE:20270427
+SUMMARY:Tameside · Division 1 · Hyde A (A) v GHAP B
+LOCATION:Manchester Communication Academy\, Silchester Drive\, Harpurhey\,\
+ 
+ nManchester M40 8NT
+DESCRIPTION:Tameside Division 1: GHAP B v Hyde A (away)\nVenue: Manchester 
+ 
+ Communication Academy\, Silchester Drive\, Harpurhey\,\nManchester M40 
+ 8NT
+ \nMap: https://maps.app.goo.gl/e1rjwKqCrGRbvaAM6
+URL:https://maps.app.goo.gl/e1rjwKqCrGRbvaAM6
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:stockport-7243@sdbl-cal
+DTSTAMP:20260717T153042Z
+DTSTART;VALUE=DATE:20270427
+DTEND;VALUE=DATE:20270428
+SUMMARY:Stockport · Division 1 · Remnants A (H) v Shell B
+LOCATION:Lymm Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB
+DESCRIPTION:Stockport Division 1: Remnants A v Shell B (home)\nVenue: Lymm 
+ 
+ Leisure Centre\, Oughtrington Ln\, Lymm WA13 0RB\nMap: https://maps.app
+ .go
+ o.gl/kLDp7d5pWtqiqCSD9
+URL:https://maps.app.goo.gl/kLDp7d5pWtqiqCSD9
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

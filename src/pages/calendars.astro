@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+
+const RAW = 'https://raw.githubusercontent.com/stockport-badminton/remnants-badminton/master/public/calendars';
+
+const calendars = [
+  { key: 'combined', name: 'Both of us', blurb: 'Every fixture across all our teams and leagues.' },
+  { key: 'mine',     name: 'Mine',       blurb: "Neil's teams: Crewe Remnants (Mens & Hybrid) and Tameside Hyde B." },
+  { key: 'wife',     name: 'Wife',       blurb: 'Stockport Remnants A, Tameside Hyde A and Manchester Hyde 1.' },
+];
+---
+
+<Base title="Calendars">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-primary mb-2">Fixture calendars</h1>
+    <p class="text-gray-600 mb-8 max-w-2xl">
+      Auto-updating badminton calendars pulled from the Stockport, Tameside, Crewe
+      and Manchester leagues. <strong>Subscribe</strong> to keep a calendar in sync
+      as fixtures are added or rearranged, or <strong>download</strong> a one-off
+      file to import. Events are all-day; venue and map links are in the notes where
+      the league publishes them.
+    </p>
+
+    <div class="grid gap-5 sm:grid-cols-1">
+      {calendars.map(({ key, name, blurb }) => (
+        <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 class="text-xl font-semibold text-primary">{name}</h2>
+              <p class="text-gray-600 text-sm mt-1 max-w-md">{blurb}</p>
+            </div>
+            <a
+              href={`${RAW}/${key}.ics`}
+              download={`badminton-${key}.ics`}
+              class="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              Download .ics
+            </a>
+          </div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mt-4 mb-1">
+            Subscribe URL (paste into Google Calendar → “From URL”)
+          </label>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              readonly
+              value={`${RAW}/${key}.ics`}
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-xs font-mono bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary/40"
+              data-url
+            />
+            <button
+              type="button"
+              class="shrink-0 px-3 py-2 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary/5 transition-colors"
+              data-copy
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 text-sm text-gray-600 border-t border-gray-200 pt-6">
+      <h3 class="font-semibold text-gray-800 mb-2">How to subscribe (Google Calendar)</h3>
+      <ol class="list-decimal list-inside space-y-1">
+        <li>Copy a subscribe URL above.</li>
+        <li>In Google Calendar, next to <em>Other calendars</em>, click <strong>+</strong> → <strong>From URL</strong>.</li>
+        <li>Paste the URL and click <strong>Add calendar</strong>. Tip: add each to its own calendar so you can show/hide them independently.</li>
+      </ol>
+      <p class="mt-3 text-gray-500">
+        Subscribed calendars refresh on Google's own schedule (roughly daily), so a
+        rearranged fixture may take up to a day to update. Manchester fixtures appear
+        once that league publishes its new season.
+      </p>
+    </div>
+  </div>
+
+  <script is:inline>
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = btn.parentElement.querySelector('[data-url]');
+        input.select();
+        navigator.clipboard.writeText(input.value).then(() => {
+          const t = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => (btn.textContent = t), 1500);
+        }).catch(() => document.execCommand('copy'));
+      });
+    });
+  </script>
+</Base>
