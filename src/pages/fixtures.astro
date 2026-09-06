@@ -19,6 +19,7 @@ import Base from '../layouts/Base.astro';
         <button data-league="stockport" class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Stockport</button>
         <button data-league="crewe"     class="league-btn px-4 py-2 text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50">Crewe</button>
       </div>
+      <div id="competition-filter" class="hidden flex rounded-lg border border-gray-200 overflow-hidden shadow-sm" role="group" aria-label="Competition"></div>
       <select id="season-select" class="hidden rounded-lg border border-gray-200 shadow-sm px-4 py-2 text-sm font-medium text-gray-600 bg-white cursor-pointer" aria-label="Season"></select>
     </div>
 
@@ -38,6 +39,7 @@ import Base from '../layouts/Base.astro';
   let allFixtures: Fixture[] = [];
   let currentView: 'upcoming' | 'results' = 'upcoming';
   let currentLeague: 'all' | 'stockport' | 'crewe' = 'all';
+  let currentCompetition = 'all';
   let currentSeason = 'all';
 
   interface Fixture {
@@ -76,6 +78,31 @@ import Base from '../layouts/Base.astro';
     return `${startYear}/${String((startYear + 1) % 100).padStart(2, '0')}`;
   }
 
+  // Crewe runs several competitions in parallel (Mens, Mens(6), Mixed, Hybrid)
+  // that are ALL called "Division 1", so the division string on its own doesn't
+  // tell a member which competition a fixture belongs to. Stripping a trailing
+  // "Division N" leaves exactly the part that differentiates them. Stockport's
+  // divisions have no such prefix ("Premier", "Division 1"), so they fall
+  // through to the full string unchanged.
+  function competitionOf(f: Fixture) {
+    const division = (f.division ?? '').trim();
+    const stripped = division.replace(/\s*Division\s*\d+$/i, '').trim();
+    return stripped || division || 'Other';
+  }
+
+  const COMPETITION_STYLES: Record<string, string> = {
+    'Mens':       'bg-blue-100 text-blue-800',
+    'Mens(6)':    'bg-sky-100 text-sky-800',
+    'Mixed':      'bg-purple-100 text-purple-800',
+    'Hybrid':     'bg-amber-100 text-amber-800',
+    'Premier':    'bg-emerald-100 text-emerald-800',
+    'Division 1': 'bg-slate-100 text-slate-700',
+  };
+
+  function competitionStyle(label: string) {
+    return COMPETITION_STYLES[label] ?? 'bg-gray-100 text-gray-700';
+  }
+
   function resultBadge(result: string | null, status: string) {
     if (status === 'outstanding') return { text: 'TBD', cls: 'bg-gray-100 text-gray-600' };
     if (!result) return { text: '–', cls: 'bg-gray-100 text-gray-600' };
@@ -90,6 +117,7 @@ import Base from '../layouts/Base.astro';
   function buildRows(list: Fixture[]) {
     return list.map((f, i) => {
       const badge = resultBadge(f.result, f.status);
+      const comp = competitionOf(f);
       const score = f.homeScore !== null && f.awayScore !== null
         ? `${f.homeScore} – ${f.awayScore}` : 'vs';
       const homeCls = isRemnants(f.homeTeam) ? 'text-primary' : 'text-gray-800';
@@ -101,7 +129,10 @@ import Base from '../layouts/Base.astro';
           <td class="px-4 py-3 hidden sm:table-cell">
             <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">${esc(f.league)}</span>
           </td>
-          <td class="px-4 py-3 hidden md:table-cell text-gray-600">${esc(f.division)}</td>
+          <td class="px-4 py-3">
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-semibold whitespace-nowrap ${competitionStyle(comp)}"
+                  title="${esc(f.league)} · ${esc(f.division)}">${esc(comp)}</span>
+          </td>
           <td class="px-4 py-3 font-medium ${homeCls}">${esc(f.homeTeam)}</td>
           <td class="px-4 py-3 text-center font-mono font-semibold text-gray-700">${score}</td>
           <td class="px-4 py-3 font-medium ${awayCls}">${esc(f.awayTeam)}</td>
@@ -120,7 +151,7 @@ import Base from '../layouts/Base.astro';
             <tr class="bg-primary text-white text-left">
               <th class="px-4 py-3 font-semibold">Date</th>
               <th class="px-4 py-3 font-semibold hidden sm:table-cell">League</th>
-              <th class="px-4 py-3 font-semibold hidden md:table-cell">Division</th>
+              <th class="px-4 py-3 font-semibold">Competition</th>
               <th class="px-4 py-3 font-semibold">Home</th>
               <th class="px-4 py-3 font-semibold text-center">Score</th>
               <th class="px-4 py-3 font-semibold">Away</th>
@@ -149,6 +180,10 @@ import Base from '../layouts/Base.astro';
 
     if (currentLeague !== 'all') {
       filtered = filtered.filter((f) => f.league.toLowerCase() === currentLeague);
+    }
+
+    if (currentCompetition !== 'all') {
+      filtered = filtered.filter((f) => competitionOf(f) === currentCompetition);
     }
 
     const output = document.getElementById('fixture-output')!;
@@ -203,6 +238,32 @@ import Base from '../layouts/Base.astro';
     sel.value = currentSeason;
   }
 
+  // The competition pills are rebuilt whenever the league changes, so they only
+  // ever offer competitions that league actually runs. With a single competition
+  // available there is nothing to choose between, so the group stays hidden.
+  function renderCompetitionFilter() {
+    const pool = currentLeague === 'all'
+      ? allFixtures
+      : allFixtures.filter((f) => f.league.toLowerCase() === currentLeague);
+    const comps = [...new Set(pool.map(competitionOf))].sort();
+    const wrap = document.getElementById('competition-filter')!;
+
+    if (comps.length <= 1) {
+      wrap.classList.add('hidden');
+      wrap.innerHTML = '';
+      return;
+    }
+
+    wrap.classList.remove('hidden');
+    wrap.innerHTML = ['all', ...comps].map((c) => {
+      const active = c === currentCompetition;
+      const cls = active ? 'bg-primary text-white' : 'bg-white text-gray-600 hover:bg-gray-50';
+      return `<button data-competition="${esc(c)}" class="competition-btn px-4 py-2 text-sm font-medium transition-colors ${cls}">${
+        c === 'all' ? 'All' : esc(c)
+      }</button>`;
+    }).join('');
+  }
+
   function updateSeasonVisibility() {
     document.getElementById('season-select')!.classList.toggle('hidden', currentView !== 'results');
   }
@@ -237,8 +298,21 @@ import Base from '../layouts/Base.astro';
     btn.addEventListener('click', () => {
       currentLeague = (btn as HTMLElement).dataset.league as typeof currentLeague;
       setActive('.league-btn', 'league', currentLeague);
+      // A competition from the previous league would filter everything away, so
+      // switching league always falls back to showing all of them.
+      currentCompetition = 'all';
+      renderCompetitionFilter();
       renderTable();
     });
+  });
+
+  // Delegated: the competition buttons are re-created whenever the league changes.
+  document.getElementById('competition-filter')!.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.competition-btn') as HTMLElement | null;
+    if (!btn) return;
+    currentCompetition = btn.dataset.competition!;
+    setActive('.competition-btn', 'competition', currentCompetition);
+    renderTable();
   });
 
   // Fetch and initialise.
@@ -254,6 +328,7 @@ import Base from '../layouts/Base.astro';
       allFixtures = data.fixtures ?? [];
       populateSeasons();
       updateSeasonVisibility();
+      renderCompetitionFilter();
 
       if (data.lastUpdated) {
         const formatted = new Date(data.lastUpdated).toLocaleString('en-GB', {
