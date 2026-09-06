@@ -106,7 +106,12 @@ function parseCreweDate(raw) {
   const month = MONTH_MAP[parts[1].toLowerCase().slice(0, 3)];
   if (!month || isNaN(day)) return null;
   const year = parts[2] ? parseInt(parts[2], 10) : inferYear(month);
-  return new Date(year, month - 1, day, 19, 0, 0).toISOString();
+  // Crewe publishes no kick-off time, so 19:00 is a nominal placeholder. Build it
+  // in UTC, not local time: the fixture id embeds this timestamp, so a local-time
+  // construction gives a scrape run on a BST machine (19:00 BST = 18:00Z) a
+  // different id from the same fixture scraped by CI in UTC (19:00Z), and the two
+  // then coexist as duplicates.
+  return new Date(Date.UTC(year, month - 1, day, 19, 0, 0)).toISOString();
 }
 
 async function fetchCrewe() {
@@ -186,11 +191,21 @@ async function fetchCrewe() {
 // never archived — otherwise a fixture whose date moves earlier (e.g. Stockport
 // lists new-season fixtures under a 1-Aug placeholder before real dates are set)
 // would leave a stale duplicate behind once the real date is published.
+//
+// Identity is also checked on the match itself, not just the id, because the id
+// embeds a timestamp: any change to how that timestamp is derived re-labels a
+// fixture the feed still lists, and the old copy would otherwise slip under the
+// `earliest` watermark and be archived as though it were history.
+const matchKey = (f) => `${f.date.slice(0, 10)}|${f.homeTeam}|${f.awayTeam}`;
+
 function archiveAndMerge(scraped, existing) {
   if (!scraped.length) return existing;
   const earliest = scraped.reduce((min, f) => (f.date < min ? f.date : min), scraped[0].date);
   const scrapedIds = new Set(scraped.map((f) => f.id));
-  const archived = existing.filter((f) => f.date < earliest && !scrapedIds.has(f.id));
+  const scrapedMatches = new Set(scraped.map(matchKey));
+  const archived = existing.filter(
+    (f) => f.date < earliest && !scrapedIds.has(f.id) && !scrapedMatches.has(matchKey(f))
+  );
   return [...archived, ...scraped];
 }
 

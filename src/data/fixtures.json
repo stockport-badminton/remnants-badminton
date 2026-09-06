@@ -521,19 +521,6 @@
       "result": "W"
     },
     {
-      "id": "crewe-2026-09-08T18:00:00.000Z-Remnants-'A'",
-      "league": "Crewe",
-      "date": "2026-09-08T18:00:00.000Z",
-      "homeTeam": "Remnants 'A'",
-      "awayTeam": "Canute 'B'",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
-      "isHome": true,
-      "division": "Mens(6) Division 1",
-      "result": null
-    },
-    {
       "id": "crewe-2026-09-08T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
       "date": "2026-09-08T19:00:00.000Z",
@@ -1054,5 +1041,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-09-06T02:13:16.843Z"
+  "lastUpdated": "2026-09-06T21:37:40.798Z"
 }
