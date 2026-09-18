@@ -573,19 +573,6 @@
       "result": null
     },
     {
-      "id": "stockport-7232",
-      "league": "Stockport",
-      "date": "2026-09-30T00:00:00.000Z",
-      "homeTeam": "Dome A",
-      "awayTeam": "Remnants A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
-      "isHome": false,
-      "division": "Division 1",
-      "result": null
-    },
-    {
       "id": "crewe-2026-10-06T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
       "date": "2026-10-06T19:00:00.000Z",
@@ -726,19 +713,6 @@
       "status": "outstanding",
       "isHome": false,
       "division": "Hybrid Division 1",
-      "result": null
-    },
-    {
-      "id": "stockport-7247",
-      "league": "Stockport",
-      "date": "2026-12-01T00:00:00.000Z",
-      "homeTeam": "Remnants A",
-      "awayTeam": "Dome A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
-      "isHome": true,
-      "division": "Division 1",
       "result": null
     },
     {
@@ -1041,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-09-17T02:44:33.838Z"
+  "lastUpdated": "2026-09-18T02:31:41.668Z"
 }
