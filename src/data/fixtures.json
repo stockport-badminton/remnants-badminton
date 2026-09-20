@@ -554,7 +554,7 @@
       "awayTeam": "Remnants A",
       "homeScore": null,
       "awayScore": null,
-      "status": "outstanding",
+      "status": "complete",
       "isHome": false,
       "division": "Division 1",
       "result": null
@@ -859,6 +859,19 @@
       "result": null
     },
     {
+      "id": "stockport-7678",
+      "league": "Stockport",
+      "date": "2027-02-16T00:00:00.000Z",
+      "homeTeam": "Parrswood A",
+      "awayTeam": "Remnants A",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "outstanding",
+      "isHome": false,
+      "division": "Division 1",
+      "result": null
+    },
+    {
       "id": "crewe-2027-02-24T19:00:00.000Z-Crosses-'A'",
       "league": "Crewe",
       "date": "2027-02-24T19:00:00.000Z",
@@ -1015,5 +1028,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-09-19T02:30:50.267Z"
+  "lastUpdated": "2026-09-20T02:41:53.206Z"
 }
