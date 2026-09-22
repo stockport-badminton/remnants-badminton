@@ -547,19 +547,6 @@
       "result": "L"
     },
     {
-      "id": "stockport-7208",
-      "league": "Stockport",
-      "date": "2026-09-22T00:00:00.000Z",
-      "homeTeam": "Parrswood A",
-      "awayTeam": "Remnants A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "complete",
-      "isHome": false,
-      "division": "Division 1",
-      "result": null
-    },
-    {
       "id": "crewe-2026-09-29T19:00:00.000Z-Remnants-'A'",
       "league": "Crewe",
       "date": "2026-09-29T19:00:00.000Z",
@@ -1028,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-09-22T02:41:01.886Z"
+  "lastUpdated": "2026-09-22T19:37:01.394Z"
 }

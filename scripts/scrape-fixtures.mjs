@@ -69,6 +69,10 @@ async function fetchStockport() {
     // Only include matches involving Remnants
     if (!isHome && !isAway) continue;
 
+    // A rearranged match keeps its original row (status "rearranged", no score)
+    // alongside a new row for the new date, so the old one is just a stale copy.
+    if (f.status === 'rearranged') continue;
+
     const homeScore = f.homeScore ?? null;
     const awayScore = f.awayScore ?? null;
 
@@ -80,7 +84,8 @@ async function fetchStockport() {
       awayTeam,
       homeScore,
       awayScore,
-      status: f.status === 'outstanding' ? 'outstanding' : 'complete',
+      // Anything we don't recognise stays outstanding rather than being passed off as a result.
+      status: f.status === 'complete' || f.status === 'completed' ? 'complete' : 'outstanding',
       isHome,
       division: { 7: 'Premier', 8: 'Division 1', 9: 'Division 2', 10: 'Division 3' }[f.division] ?? `Division ${f.division}`,
       result: calcResult(isHome, homeScore, awayScore),

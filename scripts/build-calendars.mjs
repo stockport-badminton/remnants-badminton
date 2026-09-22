@@ -60,6 +60,8 @@ async function fetchLeagueApi({ league, base, club, entries }) {
     const isHome = wanted.includes(norm(home));
     const isAway = wanted.includes(norm(away));
     if (!isHome && !isAway) continue;
+    // Rearranged matches keep their original row alongside the new-date row; skip the stale one.
+    if (f.status === 'rearranged') continue;
     const ourTeam = isHome ? home : away;
     const plan = entries.find(e => eq(e.team, ourTeam));
     out.push({
