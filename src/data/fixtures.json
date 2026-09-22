@@ -539,12 +539,12 @@
       "date": "2026-09-15T00:00:00.000Z",
       "homeTeam": "Remnants A",
       "awayTeam": "Featherforce B",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 6,
+      "awayScore": 12,
+      "status": "complete",
       "isHome": true,
       "division": "Division 1",
-      "result": null
+      "result": "L"
     },
     {
       "id": "stockport-7208",
@@ -1028,5 +1028,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-09-21T02:39:10.468Z"
+  "lastUpdated": "2026-09-22T02:41:01.886Z"
 }
