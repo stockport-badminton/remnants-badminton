@@ -552,12 +552,12 @@
       "date": "2026-09-29T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Goostrey 'A'",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 18,
+      "awayScore": 0,
+      "status": "complete",
       "isHome": true,
       "division": "Hybrid Division 1",
-      "result": null
+      "result": "W"
     },
     {
       "id": "crewe-2026-10-06T19:00:00.000Z-Remnants-'A'",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-09-30T03:18:42.001Z"
+  "lastUpdated": "2026-10-01T03:24:57.933Z"
 }
