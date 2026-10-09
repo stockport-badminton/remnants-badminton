@@ -578,12 +578,12 @@
       "date": "2026-10-07T00:00:00.000Z",
       "homeTeam": "Alderley Park B",
       "awayTeam": "Remnants A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 6,
+      "awayScore": 12,
+      "status": "complete",
       "isHome": false,
       "division": "Division 1",
-      "result": null
+      "result": "W"
     },
     {
       "id": "stockport-7248",
@@ -751,19 +751,6 @@
       "awayScore": null,
       "status": "outstanding",
       "isHome": true,
-      "division": "Division 1",
-      "result": null
-    },
-    {
-      "id": "stockport-7265",
-      "league": "Stockport",
-      "date": "2027-01-07T00:00:00.000Z",
-      "homeTeam": "Featherforce B",
-      "awayTeam": "Remnants A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
-      "isHome": false,
       "division": "Division 1",
       "result": null
     },
@@ -963,6 +950,19 @@
       "result": null
     },
     {
+      "id": "stockport-7685",
+      "league": "Stockport",
+      "date": "2027-04-08T00:00:00.000Z",
+      "homeTeam": "Featherforce B",
+      "awayTeam": "Remnants A",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "outstanding",
+      "isHome": false,
+      "division": "Division 1",
+      "result": null
+    },
+    {
       "id": "stockport-7246",
       "league": "Stockport",
       "date": "2027-04-13T00:00:00.000Z",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-10-08T03:50:32.826Z"
+  "lastUpdated": "2026-10-09T03:55:47.633Z"
 }
