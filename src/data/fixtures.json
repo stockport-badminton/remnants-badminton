@@ -591,12 +591,12 @@
       "date": "2026-10-20T00:00:00.000Z",
       "homeTeam": "Remnants A",
       "awayTeam": "Macclesfield A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 5,
+      "awayScore": 13,
+      "status": "complete",
       "isHome": true,
       "division": "Division 1",
-      "result": null
+      "result": "L"
     },
     {
       "id": "stockport-7200",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-10-20T02:51:15.415Z"
+  "lastUpdated": "2026-10-21T02:45:29.533Z"
 }
