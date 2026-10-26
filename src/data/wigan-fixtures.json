@@ -1,0 +1,230 @@
+{
+  "seasonId": "893295055",
+  "fixtures": [
+    {
+      "matchId": "44847903",
+      "date": "2026-09-18",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Bridge B",
+      "venue": "",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44847903.html"
+    },
+    {
+      "matchId": "44848246",
+      "date": "2026-09-24",
+      "time": "19:30",
+      "home": "Y Club A",
+      "away": "Bryn A",
+      "venue": "",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848246.html"
+    },
+    {
+      "matchId": "44847912",
+      "date": "2026-10-01",
+      "time": "19:30",
+      "home": "Bryn B",
+      "away": "Bridge A",
+      "venue": "",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44847912.html"
+    },
+    {
+      "matchId": "44848020",
+      "date": "2026-10-16",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Vida A",
+      "venue": "",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848020.html"
+    },
+    {
+      "matchId": "44848027",
+      "date": "2026-10-26",
+      "time": "19:30",
+      "home": "Old Pembs A",
+      "away": "Bridge A",
+      "venue": "Hawkley Hall High School",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848027.html"
+    },
+    {
+      "matchId": "44848030",
+      "date": "2026-10-30",
+      "time": "19:30",
+      "home": "Bridge B",
+      "away": "Y Club A",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848030.html"
+    },
+    {
+      "matchId": "44904674",
+      "date": "2026-11-12",
+      "time": "19:30",
+      "home": "Y Club A",
+      "away": "Bridge A",
+      "venue": "St Peter's High School",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44904674.html"
+    },
+    {
+      "matchId": "44848045",
+      "date": "2026-11-18",
+      "time": "20:00",
+      "home": "Y Club A",
+      "away": "Bridge A",
+      "venue": "Great Sankey Neighbourhood Hub",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848045.html"
+    },
+    {
+      "matchId": "44848060",
+      "date": "2026-11-26",
+      "time": "19:30",
+      "home": "Bryn B",
+      "away": "Y Club A",
+      "venue": "John Rigby College",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848060.html"
+    },
+    {
+      "matchId": "44848061",
+      "date": "2026-11-27",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Bryn A",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848061.html"
+    },
+    {
+      "matchId": "44848062",
+      "date": "2026-12-14",
+      "time": "19:30",
+      "home": "Old Pembs B",
+      "away": "Bridge A",
+      "venue": "Hawkley Hall High School",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848062.html"
+    },
+    {
+      "matchId": "44848071",
+      "date": "2027-01-07",
+      "time": "19:30",
+      "home": "Bryn A",
+      "away": "Y Club A",
+      "venue": "John Rigby College",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848071.html"
+    },
+    {
+      "matchId": "44848072",
+      "date": "2027-01-08",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Old Pembs B",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848072.html"
+    },
+    {
+      "matchId": "44848247",
+      "date": "2027-01-14",
+      "time": "19:30",
+      "home": "Y Club A",
+      "away": "Old Pembs B",
+      "venue": "John Rigby College",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848247.html"
+    },
+    {
+      "matchId": "44848081",
+      "date": "2027-01-21",
+      "time": "19:30",
+      "home": "Y Club A",
+      "away": "Vida A",
+      "venue": "John Rigby College",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848081.html"
+    },
+    {
+      "matchId": "44848082",
+      "date": "2027-01-22",
+      "time": "19:30",
+      "home": "Bridge B",
+      "away": "Bridge A",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848082.html"
+    },
+    {
+      "matchId": "44848085",
+      "date": "2027-02-12",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Bryn B",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848085.html"
+    },
+    {
+      "matchId": "44848092",
+      "date": "2027-02-15",
+      "time": "19:30",
+      "home": "Old Pembs A",
+      "away": "Y Club A",
+      "venue": "Hawkley Hall High School",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848092.html"
+    },
+    {
+      "matchId": "44848093",
+      "date": "2027-02-15",
+      "time": "20:00",
+      "home": "Vida A",
+      "away": "Bridge A",
+      "venue": "Orford Jubilee Park",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848093.html"
+    },
+    {
+      "matchId": "44848100",
+      "date": "2027-02-25",
+      "time": "19:30",
+      "home": "Y Club A",
+      "away": "Bridge B",
+      "venue": "John Rigby College",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848100.html"
+    },
+    {
+      "matchId": "44848107",
+      "date": "2027-02-26",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Old Pembs A",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848107.html"
+    },
+    {
+      "matchId": "44848209",
+      "date": "2027-03-12",
+      "time": "19:30",
+      "home": "Bridge A",
+      "away": "Y Club A",
+      "venue": "Newbridge Learning Community",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848209.html"
+    },
+    {
+      "matchId": "44848145",
+      "date": "2027-03-22",
+      "time": "19:30",
+      "home": "Old Pembs B",
+      "away": "Y Club A",
+      "venue": "Hawkley Hall High School",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848145.html"
+    },
+    {
+      "matchId": "44848151",
+      "date": "2027-04-12",
+      "time": "19:30",
+      "home": "Y Club A",
+      "away": "Bryn B",
+      "venue": "Hawkley Hall High School",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848151.html"
+    },
+    {
+      "matchId": "44848191",
+      "date": "2027-04-15",
+      "time": "19:30",
+      "home": "Bryn A",
+      "away": "Bridge A",
+      "venue": "John Rigby College",
+      "url": "https://wiganbadminton.leaguerepublic.com/match/44848191.html"
+    }
+  ]
+}

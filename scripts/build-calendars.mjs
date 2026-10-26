@@ -8,12 +8,13 @@
  *   public/calendars/wife.ics      — wife's teams
  *
  * Sources: Stockport & Tameside (JSON API), Crewe & Manchester (HTML scrape),
- * Wigan (LeagueRepublic). All-day events; venue + map in the details where known.
+ * Wigan (LeagueRepublic, via the weekly scrape-wigan.mjs cache). All-day events;
+ * time, venue + map in the details where known.
  *
  * Run: node scripts/build-calendars.mjs
  */
 import { load } from 'cheerio';
-import { mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -29,12 +30,10 @@ const PLAN = [
   { league: 'Tameside',   source: 'tameside',  club: 'Hyde',     team: 'Hyde A',   who: 'wife' },
   { league: 'Tameside',   source: 'tameside',  club: 'Hyde',     team: 'Hyde B',   who: 'me' },
   { league: 'Manchester', source: 'mcrbl',     team: 'Hyde 1',   who: 'wife' },
-  // Wigan (LeagueRepublic) deferred: the league hasn't enabled LeagueRepublic
-  // web services ("League is not authorised to access webservices") and the team
-  // pages are JS-rendered, so there's no clean feed to pull. Re-enable here if
-  // they turn web services on, or add a Playwright scrape.
-  // { league: 'Wigan', source: 'leaguerepublic', team: 'Bridge A', who: 'both' },
-  // { league: 'Wigan', source: 'leaguerepublic', team: 'Y Club A', who: 'both' },
+  // Wigan is read from src/data/wigan-fixtures.json, written weekly by
+  // scripts/scrape-wigan.mjs (Playwright — the site has no usable API).
+  { league: 'Wigan',      source: 'wigan',     team: 'Bridge A', who: 'wife' },
+  { league: 'Wigan',      source: 'wigan',     team: 'Y Club A', who: 'me' },
 ];
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
@@ -161,6 +160,31 @@ async function fetchMcrbl(entries) {
   return out;
 }
 
+// ── Wigan (LeagueRepublic) — cached JSON from the weekly Playwright scrape ───
+function readWigan(entries) {
+  const file = join(__dirname, '../src/data/wigan-fixtures.json');
+  if (!existsSync(file)) throw new Error('no wigan-fixtures.json yet (run scripts/scrape-wigan.mjs)');
+  const teams = entries.map(e => norm(e.team));
+  const out = [];
+  for (const f of JSON.parse(readFileSync(file, 'utf8')).fixtures) {
+    const isHome = teams.includes(norm(f.home));
+    const isAway = teams.includes(norm(f.away));
+    if (!isHome && !isAway) continue;
+    // Bridge A v Y Club A: both ours — file it under the home side, but it's in
+    // both people's calendars when the two teams belong to different people.
+    const ourTeam = isHome ? f.home : f.away;
+    const whos = new Set(entries.filter(e => eq(e.team, f.home) || eq(e.team, f.away)).map(e => e.who));
+    const who = whos.size > 1 ? 'both' : [...whos][0];
+    out.push({
+      uid: `wigan-${f.matchId}@sdbl-cal`,
+      league: 'Wigan', comp: '', date: f.date, time: f.time,
+      ourTeam, opponent: isHome ? f.away : f.home, isHome,
+      venue: f.venue, mapUrl: '', url: f.url, who,
+    });
+  }
+  return out;
+}
+
 // ── Source dispatch ──────────────────────────────────────────────────────────
 async function gather() {
   const bySource = {};
@@ -175,6 +199,7 @@ async function gather() {
       else if (source === 'tameside') fx = await fetchLeagueApi({ league: 'Tameside', base: 'https://tameside-badminton.co.uk', club: 'Hyde', entries });
       else if (source === 'crewe') fx = await fetchCrewe(entries);
       else if (source === 'mcrbl') fx = await fetchMcrbl(entries);
+      else if (source === 'wigan') fx = readWigan(entries);
       else { report.push(`${source}: (not implemented yet)`); continue; }
       const kept = fx.filter(f => f.date >= CUTOFF); // current season only
       all.push(...kept);
@@ -205,8 +230,10 @@ function title(f) {
 }
 function description(f) {
   const lines = [`${f.league}${f.comp ? ' ' + f.comp : ''}: ${f.isHome ? f.ourTeam + ' v ' + f.opponent + ' (home)' : f.opponent + ' v ' + f.ourTeam + ' (away)'}`];
+  if (f.time) lines.push(`Time: ${f.time}`);
   if (f.venue) lines.push(`Venue: ${f.venue}`);
   if (f.mapUrl) lines.push(`Map: ${f.mapUrl}`);
+  if (f.url) lines.push(`Match: ${f.url}`);
   if (!f.venue) lines.push('Venue/time: check the league site');
   return lines.join('\n');
 }
@@ -232,7 +259,7 @@ function buildIcs(fixtures, calName, stampIso) {
     out.push('END:VEVENT');
   }
   out.push('END:VCALENDAR');
-  return out.map(fold).join('\r\n') + '\r\n';
+  return out.join('\r\n') + '\r\n';
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
