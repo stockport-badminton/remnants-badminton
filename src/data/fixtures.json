@@ -604,12 +604,12 @@
       "date": "2026-10-28T00:00:00.000Z",
       "homeTeam": "Shell B",
       "awayTeam": "Remnants A",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 9,
+      "awayScore": 9,
+      "status": "complete",
       "isHome": false,
       "division": "Division 1",
-      "result": null
+      "result": "D"
     },
     {
       "id": "crewe-2026-11-03T19:00:00.000Z-Remnants-'A'",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-10-30T03:48:21.143Z"
+  "lastUpdated": "2026-10-31T03:31:57.055Z"
 }
