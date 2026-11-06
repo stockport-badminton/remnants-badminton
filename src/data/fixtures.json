@@ -617,12 +617,12 @@
       "date": "2026-11-03T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Canute 'A'",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 9,
+      "awayScore": 9,
+      "status": "complete",
       "isHome": true,
       "division": "Mens(6) Division 1",
-      "result": null
+      "result": "D"
     },
     {
       "id": "crewe-2026-11-09T19:00:00.000Z-Whitfield-'A'",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-11-05T04:31:56.544Z"
+  "lastUpdated": "2026-11-06T04:30:16.517Z"
 }
