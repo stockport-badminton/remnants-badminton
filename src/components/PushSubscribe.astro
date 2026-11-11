@@ -1,0 +1,181 @@
+---
+// Opt-in panel for result notifications. Teams come from fixtures.json at build
+// time; the server re-validates them (netlify/functions/push-subscribe.mjs).
+import fixtures from '../data/fixtures.json';
+import push from '../data/push.json';
+import { clubTeams } from '../lib/push/teams.mjs';
+
+const teams: string[] = clubTeams(fixtures.fixtures);
+---
+
+<section
+  id="push-panel"
+  data-vapid-key={push.vapidPublicKey}
+  data-teams={JSON.stringify(teams)}
+  class="mt-12 rounded-xl border border-gray-200 bg-gray-50 p-6"
+  aria-labelledby="push-heading"
+>
+  <h2 id="push-heading" class="text-lg font-semibold text-primary mb-1">Result notifications</h2>
+
+  <!-- Exactly one [data-state] block is shown at a time -->
+  <div data-state="loading"><p class="text-sm text-gray-500">Checking notification settings…</p></div>
+
+  <div data-state="unsupported" hidden>
+    <p class="text-sm text-gray-600">This browser doesn't support notifications.</p>
+  </div>
+
+  <div data-state="ios-install" hidden>
+    <p class="text-sm text-gray-600">
+      On iPhone and iPad, add this site to your Home Screen first: tap
+      <strong>Share</strong> → <strong>Add to Home Screen</strong>, then open it from there to turn on notifications.
+    </p>
+  </div>
+
+  <div data-state="dev" hidden>
+    <p class="text-sm text-gray-600">Notifications only work on the live site (the service worker isn't registered in dev).</p>
+  </div>
+
+  <div data-state="denied" hidden>
+    <p class="text-sm text-gray-600">
+      Notifications are blocked for this site. To turn them on, allow notifications in your browser or phone settings, then reload.
+    </p>
+  </div>
+
+  <div data-state="ready" hidden>
+    <p data-role="intro" class="text-sm text-gray-600 mb-4"></p>
+    {teams.length > 1 && (
+      <fieldset class="mb-4">
+        <legend class="text-sm font-medium text-gray-700 mb-2">Teams</legend>
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
+          {teams.map((t) => (
+            <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+              <input type="checkbox" name="push-team" value={t} checked class="rounded border-gray-300" />
+              {t}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    )}
+    <div class="flex flex-wrap gap-3">
+      <button type="button" data-action="subscribe" class="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 disabled:opacity-50"></button>
+      <button type="button" data-action="unsubscribe" hidden class="bg-white border border-gray-300 text-gray-700 text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-100 disabled:opacity-50">Turn off</button>
+    </div>
+    <p data-role="status" class="text-sm mt-3" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  const API = '/.netlify/functions/push-subscribe';
+  const STORAGE_KEY = 'push-teams';
+
+  const panel = document.getElementById('push-panel') as HTMLElement;
+  const vapidKey = panel.dataset.vapidKey!;
+  const allTeams: string[] = JSON.parse(panel.dataset.teams || '[]');
+  const $ = <T extends Element>(sel: string) => panel.querySelector(sel) as T;
+  const subscribeBtn = $<HTMLButtonElement>('[data-action="subscribe"]');
+  const unsubscribeBtn = $<HTMLButtonElement>('[data-action="unsubscribe"]');
+  const intro = $<HTMLElement>('[data-role="intro"]');
+  const status = $<HTMLElement>('[data-role="status"]');
+
+  function show(state: string) {
+    panel.querySelectorAll<HTMLElement>('[data-state]').forEach((el) => (el.hidden = el.dataset.state !== state));
+  }
+
+  function setStatus(msg: string, error = false) {
+    status.textContent = msg;
+    status.className = `text-sm mt-3 ${error ? 'text-red-600' : 'text-green-700'}`;
+  }
+
+  function selectedTeams(): string[] {
+    const boxes = panel.querySelectorAll<HTMLInputElement>('input[name="push-team"]');
+    return boxes.length ? [...boxes].filter((b) => b.checked).map((b) => b.value) : allTeams;
+  }
+
+  function restoreTeams() {
+    let saved: string[] | null = null;
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch {}
+    if (!saved) return;
+    panel.querySelectorAll<HTMLInputElement>('input[name="push-team"]').forEach((b) => (b.checked = saved!.includes(b.value)));
+  }
+
+  function urlBase64ToUint8Array(base64: string) {
+    const padded = (base64 + '='.repeat((4 - (base64.length % 4)) % 4)).replace(/-/g, '+').replace(/_/g, '/');
+    return Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+  }
+
+  function render(subscribed: boolean) {
+    const names = allTeams.join(' and ') || 'club';
+    intro.textContent = subscribed
+      ? `You're getting notifications on this device when results come in.`
+      : `Get a notification on this device when ${allTeams.length > 1 ? 'your team’s' : names} results come in.`;
+    subscribeBtn.textContent = subscribed ? (allTeams.length > 1 ? 'Save teams' : 'Notifications on ✓') : 'Turn on notifications';
+    subscribeBtn.disabled = subscribed && allTeams.length <= 1;
+    unsubscribeBtn.hidden = !subscribed;
+    show('ready');
+  }
+
+  async function save(sub: PushSubscription, teams: string[]) {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subscription: sub.toJSON(), teams }),
+    });
+    if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(teams)); } catch {}
+  }
+
+  async function init() {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+      const iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
+      return show(iOS && !standalone ? 'ios-install' : 'unsupported');
+    }
+    if (Notification.permission === 'denied') return show('denied');
+
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) return show(import.meta.env.DEV ? 'dev' : 'unsupported');
+
+    restoreTeams();
+    const existing = await reg.pushManager.getSubscription();
+    render(!!existing);
+
+    subscribeBtn.addEventListener('click', async () => {
+      const teams = selectedTeams();
+      if (!teams.length) return setStatus('Pick at least one team.', true);
+      subscribeBtn.disabled = true;
+      try {
+        if (Notification.permission !== 'granted' && (await Notification.requestPermission()) !== 'granted') {
+          return show(Notification.permission === 'denied' ? 'denied' : 'ready');
+        }
+        const sub = (await reg.pushManager.getSubscription()) ??
+          (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(vapidKey) }));
+        await save(sub, teams);
+        render(true);
+        setStatus('Notifications are on.');
+      } catch (err) {
+        setStatus(`Couldn't turn on notifications: ${(err as Error).message}`, true);
+      } finally {
+        subscribeBtn.disabled = allTeams.length <= 1 && !!(await reg.pushManager.getSubscription());
+      }
+    });
+
+    unsubscribeBtn.addEventListener('click', async () => {
+      unsubscribeBtn.disabled = true;
+      try {
+        const sub = await reg.pushManager.getSubscription();
+        if (sub) {
+          await fetch(API, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ endpoint: sub.endpoint }) }).catch(() => {});
+          await sub.unsubscribe();
+        }
+        render(false);
+        setStatus('Notifications are off.');
+      } catch (err) {
+        setStatus(`Couldn't turn off notifications: ${(err as Error).message}`, true);
+      } finally {
+        unsubscribeBtn.disabled = false;
+      }
+    });
+  }
+
+  init().catch((err) => { console.warn('push panel', err); show('unsupported'); });
+</script>
