@@ -4,8 +4,13 @@ import { sendNotification } from 'web-push';
 
 const CONCURRENCY = 25;
 
-/** A subscriber with no teams selected gets everything. */
+/**
+ * Empty lists mean "everything": a subscriber with no teams gets every team,
+ * one with no types gets every type (so older subscriptions keep working), and
+ * a notification with no teams/type goes to everyone (e.g. --test).
+ */
 export function wants(record, notification) {
+  if (notification.type && record.types?.length && !record.types.includes(notification.type)) return false;
   if (!notification.teams?.length || !record.teams?.length) return true;
   return notification.teams.some((t) => record.teams.includes(t));
 }

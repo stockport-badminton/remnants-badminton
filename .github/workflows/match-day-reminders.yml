@@ -1,0 +1,42 @@
+name: Match-day Reminders
+
+# Sends a push notification to subscribers for each club fixture being played
+# today. 08:30 UTC = 08:30 GMT / 09:30 BST. Uses the fixtures.json on master,
+# which the midnight scrape keeps current.
+on:
+  schedule:
+    - cron: '30 8 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Pretend it is this date (YYYY-MM-DD). Leave blank for today.'
+        required: false
+      dry_run:
+        description: 'Only print what would be sent'
+        type: boolean
+        default: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No npm ci: the reminder path only uses Node built-ins.
+      - name: Send match-day reminders
+        env:
+          PUSH_SEND_SECRET: ${{ secrets.PUSH_SEND_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          DATE: ${{ inputs.date }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          args=(--reminders)
+          [ -n "$DATE" ] && args+=(--date "$DATE")
+          [ "$DRY_RUN" = "true" ] && args+=(--dry-run)
+          node scripts/push-notify.mjs "${args[@]}"

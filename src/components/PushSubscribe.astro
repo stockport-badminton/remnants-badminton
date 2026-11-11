@@ -1,22 +1,25 @@
 ---
-// Opt-in panel for result notifications. Teams come from fixtures.json at build
-// time; the server re-validates them (netlify/functions/push-subscribe.mjs).
+// Opt-in panel for push notifications: which teams (one per competition) and
+// which kinds (results, match-day reminders). Topics come from fixtures.json at
+// build time; the server re-validates everything (netlify/functions/push-subscribe.mjs).
 import fixtures from '../data/fixtures.json';
 import push from '../data/push.json';
 import { clubTopics } from '../lib/push/teams.mjs';
 
 const topics = clubTopics(fixtures.fixtures);
+const types = [
+  { key: 'results', label: 'Results' },
+  { key: 'reminders', label: 'Match-day reminders' },
+];
 ---
 
 <section
   id="push-panel"
   data-vapid-key={push.vapidPublicKey}
-  data-teams={JSON.stringify(topics.map((t) => t.key))}
-  data-labels={JSON.stringify(topics.map((t) => t.label))}
   class="mt-12 rounded-xl border border-gray-200 bg-gray-50 p-6"
   aria-labelledby="push-heading"
 >
-  <h2 id="push-heading" class="text-lg font-semibold text-primary mb-1">Result notifications</h2>
+  <h2 id="push-heading" class="text-lg font-semibold text-primary mb-1">Notifications</h2>
 
   <!-- Exactly one [data-state] block is shown at a time -->
   <div data-state="loading"><p class="text-sm text-gray-500">Checking notification settings…</p></div>
@@ -44,19 +47,32 @@ const topics = clubTopics(fixtures.fixtures);
 
   <div data-state="ready" hidden>
     <p data-role="intro" class="text-sm text-gray-600 mb-4"></p>
-    {topics.length > 1 && (
-      <fieldset class="mb-4">
-        <legend class="text-sm font-medium text-gray-700 mb-2">Teams</legend>
-        <div class="flex flex-wrap gap-x-6 gap-y-2">
-          {topics.map((t) => (
+    <div class="grid sm:grid-cols-2 gap-4 mb-5">
+      {topics.length > 1 && (
+        <fieldset>
+          <legend class="text-sm font-medium text-gray-700 mb-2">Teams</legend>
+          <div class="flex flex-col gap-2">
+            {topics.map((t) => (
+              <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                <input type="checkbox" name="push-team" value={t.key} checked class="rounded border-gray-300" />
+                {t.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+      <fieldset>
+        <legend class="text-sm font-medium text-gray-700 mb-2">Notify me about</legend>
+        <div class="flex flex-col gap-2">
+          {types.map((t) => (
             <label class="inline-flex items-center gap-2 text-sm text-gray-700">
-              <input type="checkbox" name="push-team" value={t.key} checked class="rounded border-gray-300" />
+              <input type="checkbox" name="push-type" value={t.key} checked class="rounded border-gray-300" />
               {t.label}
             </label>
           ))}
         </div>
       </fieldset>
-    )}
+    </div>
     <div class="flex flex-wrap gap-3">
       <button type="button" data-action="subscribe" class="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 disabled:opacity-50"></button>
       <button type="button" data-action="unsubscribe" hidden class="bg-white border border-gray-300 text-gray-700 text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-100 disabled:opacity-50">Turn off</button>
@@ -67,13 +83,15 @@ const topics = clubTopics(fixtures.fixtures);
 
 <script>
   const API = '/.netlify/functions/push-subscribe';
-  const STORAGE_KEY = 'push-teams';
+  const STORAGE_KEY = 'push-prefs';
+  const LEGACY_KEY = 'push-teams'; // teams-only prefs from before reminders existed
+
+  type Prefs = { teams: string[]; types: string[] };
 
   const panel = document.getElementById('push-panel') as HTMLElement;
   const vapidKey = panel.dataset.vapidKey!;
-  const allTeams: string[] = JSON.parse(panel.dataset.teams || '[]');
-  const allLabels: string[] = JSON.parse(panel.dataset.labels || '[]');
   const $ = <T extends Element>(sel: string) => panel.querySelector(sel) as T;
+  const boxes = (name: string) => [...panel.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`)];
   const subscribeBtn = $<HTMLButtonElement>('[data-action="subscribe"]');
   const unsubscribeBtn = $<HTMLButtonElement>('[data-action="unsubscribe"]');
   const intro = $<HTMLElement>('[data-role="intro"]');
@@ -88,16 +106,24 @@ const topics = clubTopics(fixtures.fixtures);
     status.className = `text-sm mt-3 ${error ? 'text-red-600' : 'text-green-700'}`;
   }
 
-  function selectedTeams(): string[] {
-    const boxes = panel.querySelectorAll<HTMLInputElement>('input[name="push-team"]');
-    return boxes.length ? [...boxes].filter((b) => b.checked).map((b) => b.value) : allTeams;
+  // With a single team there are no team boxes; send [] which means "all teams".
+  function selected(): Prefs {
+    const checked = (name: string) => boxes(name).filter((b) => b.checked).map((b) => b.value);
+    return { teams: checked('push-team'), types: checked('push-type') };
   }
 
-  function restoreTeams() {
-    let saved: string[] | null = null;
-    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch {}
+  function restorePrefs() {
+    let saved: Partial<Prefs> | null = null;
+    try {
+      saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if (!saved) {
+        const legacy = JSON.parse(localStorage.getItem(LEGACY_KEY) || 'null');
+        if (legacy) saved = { teams: legacy };
+      }
+    } catch {}
     if (!saved) return;
-    panel.querySelectorAll<HTMLInputElement>('input[name="push-team"]').forEach((b) => (b.checked = saved!.includes(b.value)));
+    if (saved.teams?.length) boxes('push-team').forEach((b) => (b.checked = saved!.teams!.includes(b.value)));
+    if (saved.types?.length) boxes('push-type').forEach((b) => (b.checked = saved!.types!.includes(b.value)));
   }
 
   function urlBase64ToUint8Array(base64: string) {
@@ -106,28 +132,25 @@ const topics = clubTopics(fixtures.fixtures);
   }
 
   function render(subscribed: boolean) {
-    const names = allLabels.join(' and ') || 'club';
     intro.textContent = subscribed
-      ? allTeams.length > 1
-        ? `You're getting result notifications on this device. Change which teams below.`
-        : `You're getting notifications on this device when results come in.`
-      : allTeams.length > 1
-        ? `Get a notification on this device when results come in. Choose your teams:`
-        : `Get a notification on this device when ${names} results come in.`;
-    subscribeBtn.textContent = subscribed ? (allTeams.length > 1 ? 'Save teams' : 'Notifications on ✓') : 'Turn on notifications';
-    subscribeBtn.disabled = subscribed && allTeams.length <= 1;
+      ? `Notifications are on for this device. Change what you get below.`
+      : `Get notifications on this device for results and on match days.`;
+    subscribeBtn.textContent = subscribed ? 'Save settings' : 'Turn on notifications';
     unsubscribeBtn.hidden = !subscribed;
     show('ready');
   }
 
-  async function save(sub: PushSubscription, teams: string[]) {
+  async function save(sub: PushSubscription, prefs: Prefs) {
     const res = await fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subscription: sub.toJSON(), teams }),
+      body: JSON.stringify({ subscription: sub.toJSON(), ...prefs }),
     });
     if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(teams)); } catch {}
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+      localStorage.removeItem(LEGACY_KEY);
+    } catch {}
   }
 
   async function init() {
@@ -141,27 +164,28 @@ const topics = clubTopics(fixtures.fixtures);
     const reg = await navigator.serviceWorker.getRegistration();
     if (!reg) return show(import.meta.env.DEV ? 'dev' : 'unsupported');
 
-    restoreTeams();
-    const existing = await reg.pushManager.getSubscription();
-    render(!!existing);
+    restorePrefs();
+    render(!!(await reg.pushManager.getSubscription()));
 
     subscribeBtn.addEventListener('click', async () => {
-      const teams = selectedTeams();
-      if (!teams.length) return setStatus('Pick at least one team.', true);
+      const prefs = selected();
+      if (boxes('push-team').length && !prefs.teams.length) return setStatus('Pick at least one team.', true);
+      if (!prefs.types.length) return setStatus('Pick at least one kind of notification, or use Turn off.', true);
       subscribeBtn.disabled = true;
       try {
+        const wasOn = !!(await reg.pushManager.getSubscription());
         if (Notification.permission !== 'granted' && (await Notification.requestPermission()) !== 'granted') {
           return show(Notification.permission === 'denied' ? 'denied' : 'ready');
         }
         const sub = (await reg.pushManager.getSubscription()) ??
           (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(vapidKey) }));
-        await save(sub, teams);
+        await save(sub, prefs);
         render(true);
-        setStatus('Notifications are on.');
+        setStatus(wasOn ? 'Settings saved.' : 'Notifications are on.');
       } catch (err) {
-        setStatus(`Couldn't turn on notifications: ${(err as Error).message}`, true);
+        setStatus(`Couldn't save notification settings: ${(err as Error).message}`, true);
       } finally {
-        subscribeBtn.disabled = allTeams.length <= 1 && !!(await reg.pushManager.getSubscription());
+        subscribeBtn.disabled = false;
       }
     });
 

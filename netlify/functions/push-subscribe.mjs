@@ -1,8 +1,8 @@
-// POST   /.netlify/functions/push-subscribe  { subscription, teams }  → save / update
+// POST   /.netlify/functions/push-subscribe  { subscription, teams, types }  → save / update
 // DELETE /.netlify/functions/push-subscribe  { endpoint }             → remove
 import fixtures from '../../src/data/fixtures.json' with { type: 'json' };
 import { clubTopics } from '../../src/lib/push/teams.mjs';
-import { subscriptionId, validateSubscription, validateTeams } from '../../src/lib/push/subscription.mjs';
+import { subscriptionId, validateSubscription, validateTeams, validateTypes } from '../../src/lib/push/subscription.mjs';
 import { createBlobStore } from '../../src/lib/push/store-blobs.mjs';
 
 const MAX_BODY = 4096;
@@ -36,11 +36,12 @@ export default async (req, context) => {
 
     const subscription = validateSubscription(body.subscription);
     const teams = validateTeams(body.teams, TEAMS);
+    const types = validateTypes(body.types);
     const id = subscriptionId(subscription.endpoint);
     const now = new Date().toISOString();
     const existing = await store.get(id);
-    await store.put(id, { subscription, teams, createdAt: existing?.createdAt ?? now, updatedAt: now });
-    return json(200, { ok: true, teams });
+    await store.put(id, { subscription, teams, types, createdAt: existing?.createdAt ?? now, updatedAt: now });
+    return json(200, { ok: true, teams, types });
   } catch (err) {
     return json(400, { error: err.message });
   }

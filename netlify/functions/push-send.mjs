@@ -1,10 +1,11 @@
 // POST /.netlify/functions/push-send
 //   Authorization: Bearer <PUSH_SEND_SECRET>
-//   { notifications: [{ teams?: string[], title, body, url?, tag? }] }
+//   { notifications: [{ type?: 'results'|'reminders', teams?: string[], title, body, url?, tag? }] }
 // Called by the fixtures GitHub Action (scripts/push-notify.mjs).
 import { timingSafeEqual } from 'node:crypto';
 import push from '../../src/data/push.json' with { type: 'json' };
 import { createBlobStore } from '../../src/lib/push/store-blobs.mjs';
+import { NOTIFICATION_TYPES } from '../../src/lib/push/subscription.mjs';
 import { sendNotifications } from '../../src/lib/push/send.mjs';
 
 const json = (status, body) =>
@@ -29,6 +30,7 @@ function clean(n) {
     // same-site paths only ('//host' would be protocol-relative)
     url: url?.startsWith('/') && !url.startsWith('//') ? url : '/',
     tag: str(n.tag, 120),
+    type: NOTIFICATION_TYPES.includes(n.type) ? n.type : undefined,
     teams: Array.isArray(n.teams) ? n.teams.filter((t) => typeof t === 'string') : [],
   };
 }

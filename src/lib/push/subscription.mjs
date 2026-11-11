@@ -32,6 +32,16 @@ export function validateSubscription(sub) {
   return { endpoint, keys: { p256dh, auth } };
 }
 
+/** Notification kinds a subscriber can opt in/out of. */
+export const NOTIFICATION_TYPES = ['results', 'reminders'];
+
+/** Keeps only known types. An empty list means "all types". */
+export function validateTypes(types) {
+  if (types == null) return [];
+  if (!Array.isArray(types)) throw new Error('invalid types');
+  return [...new Set(types.filter((t) => NOTIFICATION_TYPES.includes(t)))];
+}
+
 /** Keeps only known team keys. An empty list means "all teams". */
 export function validateTeams(teams, allowed) {
   if (teams == null) return [];

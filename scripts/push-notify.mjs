@@ -1,17 +1,25 @@
 #!/usr/bin/env node
 /**
- * Diffs fixtures.json between two git revisions and sends push notifications
- * for new results via the site's push-send function.
+ * Sends push notifications via the site's push-send function.
  *
+ * Results (run after the daily scrape): diffs fixtures.json between two git
+ * revisions and notifies new results.
  *   node scripts/push-notify.mjs                 # compare HEAD~1 → HEAD and send
- *   node scripts/push-notify.mjs --dry-run       # print what would be sent
  *   node scripts/push-notify.mjs --base <ref>    # compare <ref> → HEAD
- *   node scripts/push-notify.mjs --test "msg"    # send a test notification to everyone
+ *
+ * Match-day reminders (run each morning): today's unplayed club fixtures.
+ *   node scripts/push-notify.mjs --reminders
+ *   node scripts/push-notify.mjs --reminders --date 2026-11-25 --dry-run
+ *
+ *   --dry-run       print what would be sent
+ *   --test "msg"    send a test notification to everyone
  *
  * Env: PUSH_SEND_SECRET (required to send), SITE_URL (default: production site)
  */
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { resultNotifications } from '../src/lib/push/diff.mjs';
+import { matchDayNotifications } from '../src/lib/push/reminders.mjs';
 
 const FILE = 'src/data/fixtures.json';
 const MAX_PER_RUN = 10; // more than this is a back-fill/re-import, not news
@@ -23,6 +31,8 @@ const value = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : un
 const dryRun = flag('--dry-run');
 const base = value('--base') ?? 'HEAD~1';
 const testMessage = value('--test');
+const reminders = flag('--reminders');
+const date = value('--date'); // YYYY-MM-DD, reminders only
 const siteUrl = (process.env.SITE_URL || 'https://quiet-kringle-2ac59b.netlify.app').replace(/\/$/, '');
 
 function fixturesAt(ref) {
@@ -36,6 +46,15 @@ function fixturesAt(ref) {
 let notifications;
 if (testMessage) {
   notifications = [{ title: 'Remnants test notification', body: testMessage, url: '/fixtures', tag: 'test' }];
+} else if (reminders) {
+  const { fixtures = [] } = JSON.parse(readFileSync(FILE, 'utf8'));
+  // Noon UK time on --date, so the UK calendar date is unambiguous.
+  const now = date ? new Date(`${date}T12:00:00Z`) : new Date();
+  notifications = matchDayNotifications(fixtures, { now });
+  if (!notifications.length) {
+    console.log('push-notify: no club fixtures today.');
+    process.exit(0);
+  }
 } else {
   const before = fixturesAt(base);
   const after = fixturesAt('HEAD');
