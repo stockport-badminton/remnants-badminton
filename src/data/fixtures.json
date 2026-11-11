@@ -643,12 +643,12 @@
       "date": "2026-11-10T19:00:00.000Z",
       "homeTeam": "Remnants 'A'",
       "awayTeam": "Crosses 'A'",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 17,
+      "awayScore": 1,
+      "status": "complete",
       "isHome": true,
       "division": "Mens(6) Division 1",
-      "result": null
+      "result": "W"
     },
     {
       "id": "crewe-2026-11-17T19:00:00.000Z-Remnants-'A'",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-11-10T05:28:57.146Z"
+  "lastUpdated": "2026-11-11T03:59:25.071Z"
 }
