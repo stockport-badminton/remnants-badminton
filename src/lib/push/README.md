@@ -20,7 +20,7 @@ GitHub Action (daily scrape) ── scripts/push-notify.mjs                     
 | `send.mjs` | ✅ as-is | Fans out notifications in batches of 25 and prunes 404/410 subscriptions. Needs a store with `list()` and `remove(id)`. |
 | `subscription.mjs` | ✅ as-is | Validates the endpoint against known push services and hashes it to an id. |
 | `store-blobs.mjs` | 🔁 swap | Netlify Blobs. For a site with a database, implement `put/get/remove/list` against a table (see below). Preview deploys use a separate store. |
-| `teams.mjs` | 🔁 adapt | Club name pattern and team-name normalisation. |
+| `teams.mjs` | 🔁 adapt | Defines the *topics* people subscribe to: one per club side per competition. Keys ignore the division level so they survive promotion and relegation (`Stockport\|Remnants A\|`, `Crewe\|Remnants A\|Hybrid`). Labels show the current division ("Stockport – Division 1"). The UI offers the current season's topics; the server accepts topics from any season. |
 | `diff.mjs` | 🔁 adapt | Converts the site's data changes into `{ teams, title, body, url, tag }`. |
 | `public/sw.js` (push section) | ✅ as-is | Handles `push` and `notificationclick`. |
 | `PushSubscribe.astro` | ✅ mostly | The UI handles unsupported browsers, iOS "add to Home Screen" first, blocked permission, subscribe, change teams and turn off. |

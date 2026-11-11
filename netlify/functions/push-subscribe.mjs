@@ -1,12 +1,14 @@
 // POST   /.netlify/functions/push-subscribe  { subscription, teams }  → save / update
 // DELETE /.netlify/functions/push-subscribe  { endpoint }             → remove
 import fixtures from '../../src/data/fixtures.json' with { type: 'json' };
-import { clubTeams } from '../../src/lib/push/teams.mjs';
+import { clubTopics } from '../../src/lib/push/teams.mjs';
 import { subscriptionId, validateSubscription, validateTeams } from '../../src/lib/push/subscription.mjs';
 import { createBlobStore } from '../../src/lib/push/store-blobs.mjs';
 
 const MAX_BODY = 4096;
-const TEAMS = clubTeams(fixtures.fixtures);
+// Accept any topic seen in the data (not just this season) so a stale page
+// can't make a save fail; the UI only offers current-season topics.
+const TEAMS = clubTopics(fixtures.fixtures, { allSeasons: true }).map((t) => t.key);
 
 const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });

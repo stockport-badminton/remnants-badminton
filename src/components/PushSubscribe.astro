@@ -3,15 +3,16 @@
 // time; the server re-validates them (netlify/functions/push-subscribe.mjs).
 import fixtures from '../data/fixtures.json';
 import push from '../data/push.json';
-import { clubTeams } from '../lib/push/teams.mjs';
+import { clubTopics } from '../lib/push/teams.mjs';
 
-const teams: string[] = clubTeams(fixtures.fixtures);
+const topics = clubTopics(fixtures.fixtures);
 ---
 
 <section
   id="push-panel"
   data-vapid-key={push.vapidPublicKey}
-  data-teams={JSON.stringify(teams)}
+  data-teams={JSON.stringify(topics.map((t) => t.key))}
+  data-labels={JSON.stringify(topics.map((t) => t.label))}
   class="mt-12 rounded-xl border border-gray-200 bg-gray-50 p-6"
   aria-labelledby="push-heading"
 >
@@ -43,14 +44,14 @@ const teams: string[] = clubTeams(fixtures.fixtures);
 
   <div data-state="ready" hidden>
     <p data-role="intro" class="text-sm text-gray-600 mb-4"></p>
-    {teams.length > 1 && (
+    {topics.length > 1 && (
       <fieldset class="mb-4">
         <legend class="text-sm font-medium text-gray-700 mb-2">Teams</legend>
         <div class="flex flex-wrap gap-x-6 gap-y-2">
-          {teams.map((t) => (
+          {topics.map((t) => (
             <label class="inline-flex items-center gap-2 text-sm text-gray-700">
-              <input type="checkbox" name="push-team" value={t} checked class="rounded border-gray-300" />
-              {t}
+              <input type="checkbox" name="push-team" value={t.key} checked class="rounded border-gray-300" />
+              {t.label}
             </label>
           ))}
         </div>
@@ -71,6 +72,7 @@ const teams: string[] = clubTeams(fixtures.fixtures);
   const panel = document.getElementById('push-panel') as HTMLElement;
   const vapidKey = panel.dataset.vapidKey!;
   const allTeams: string[] = JSON.parse(panel.dataset.teams || '[]');
+  const allLabels: string[] = JSON.parse(panel.dataset.labels || '[]');
   const $ = <T extends Element>(sel: string) => panel.querySelector(sel) as T;
   const subscribeBtn = $<HTMLButtonElement>('[data-action="subscribe"]');
   const unsubscribeBtn = $<HTMLButtonElement>('[data-action="unsubscribe"]');
@@ -104,10 +106,14 @@ const teams: string[] = clubTeams(fixtures.fixtures);
   }
 
   function render(subscribed: boolean) {
-    const names = allTeams.join(' and ') || 'club';
+    const names = allLabels.join(' and ') || 'club';
     intro.textContent = subscribed
-      ? `You're getting notifications on this device when results come in.`
-      : `Get a notification on this device when ${allTeams.length > 1 ? 'your team’s' : names} results come in.`;
+      ? allTeams.length > 1
+        ? `You're getting result notifications on this device. Change which teams below.`
+        : `You're getting notifications on this device when results come in.`
+      : allTeams.length > 1
+        ? `Get a notification on this device when results come in. Choose your teams:`
+        : `Get a notification on this device when ${names} results come in.`;
     subscribeBtn.textContent = subscribed ? (allTeams.length > 1 ? 'Save teams' : 'Notifications on ✓') : 'Turn on notifications';
     subscribeBtn.disabled = subscribed && allTeams.length <= 1;
     unsubscribeBtn.hidden = !subscribed;
