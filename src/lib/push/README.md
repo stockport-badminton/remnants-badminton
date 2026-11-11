@@ -1,6 +1,8 @@
 # Push notifications
 
-Result notifications for club teams, using standard Web Push with our own VAPID keys. There is no third-party service.
+Result notifications and match-day reminders for club teams, using standard Web Push with our own VAPID keys. There is no third-party service.
+
+Subscribers choose **teams** (topics) and **types** (`results`, `reminders`). An empty list means "everything", so older subscriptions with no `types` still get everything.
 
 ## How it fits together
 
@@ -9,6 +11,7 @@ fixtures page ── PushSubscribe.astro ──POST──▶ netlify/functions/p
                                                                                      │
 GitHub Action (daily scrape) ── scripts/push-notify.mjs                              │
    diffs fixtures.json HEAD~1→HEAD ──POST (Bearer secret)──▶ push-send ── list ◀────┘
+GitHub Action (08:30 UTC) ── push-notify.mjs --reminders ──┘
                                                                │
                                                      web-push → FCM / Apple / Mozilla
                                                                │
@@ -21,7 +24,8 @@ GitHub Action (daily scrape) ── scripts/push-notify.mjs                     
 | `subscription.mjs` | ✅ as-is | Validates the endpoint against known push services and hashes it to an id. |
 | `store-blobs.mjs` | 🔁 swap | Netlify Blobs. For a site with a database, implement `put/get/remove/list` against a table (see below). Preview deploys use a separate store. |
 | `teams.mjs` | 🔁 adapt | Defines the *topics* people subscribe to: one per club side per competition. Keys ignore the division level so they survive promotion and relegation (`Stockport\|Remnants A\|`, `Crewe\|Remnants A\|Hybrid`). Labels show the current division ("Stockport – Division 1"). The UI offers the current season's topics; the server accepts topics from any season. |
-| `diff.mjs` | 🔁 adapt | Converts the site's data changes into `{ teams, title, body, url, tag }`. |
+| `diff.mjs` | 🔁 adapt | Converts the site's data changes into `{ type: 'results', teams, title, body, url, tag }`. |
+| `reminders.mjs` | 🔁 adapt | Builds today's fixtures (UK date) into `{ type: 'reminders', … }`. With real start times you could send a few hours before instead. |
 | `public/sw.js` (push section) | ✅ as-is | Handles `push` and `notificationclick`. |
 | `PushSubscribe.astro` | ✅ mostly | The UI handles unsupported browsers, iOS "add to Home Screen" first, blocked permission, subscribe, change teams and turn off. |
 
@@ -34,6 +38,7 @@ create table push_subscriptions (
   p256dh      text not null,
   auth        text not null,
   teams       text[] not null default '{}', -- empty = all teams
+  types       text[] not null default '{}', -- 'results' | 'reminders'; empty = all
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
 );
@@ -56,6 +61,7 @@ If you rotate the VAPID keys, every existing subscription stops working and ever
 ```bash
 node scripts/push-notify.mjs --dry-run                 # what would the last scrape have sent?
 node scripts/push-notify.mjs --base HEAD~20 --dry-run  # diff over a longer range
+node scripts/push-notify.mjs --reminders --date 2026-11-17 --dry-run  # reminders for a given day
 PUSH_SEND_SECRET=… node scripts/push-notify.mjs --test "Hello"   # send to every subscriber
 PUSH_SEND_SECRET=… SITE_URL=https://deploy-preview-N--….netlify.app node scripts/push-notify.mjs --test "Hi"  # preview store only
 ```

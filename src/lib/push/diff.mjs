@@ -1,6 +1,6 @@
 // Turns a before/after pair of fixtures.json snapshots into push notifications.
 // Site-specific: other projects will have their own version of this file that
-// emits the same notification shape ({ teams, title, body, url, tag }).
+// emits the same notification shape ({ type, teams, title, body, url, tag }).
 import { teamKey, topicOf } from './teams.mjs';
 
 const RESULT_WORD = { W: 'Won', L: 'Lost', D: 'Drew' };
@@ -35,6 +35,7 @@ export function resultNotifications(before, after, { now = new Date(), maxAgeDay
     const word = RESULT_WORD[f.result] ?? 'Result';
 
     out.push({
+      type: 'results',
       teams: [topic.key],
       title: `${topic.label}: ${word} ${us}–${them}`,
       body: `vs ${teamKey(theirs)} (${f.isHome ? 'home' : 'away'})`,
