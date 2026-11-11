@@ -1,0 +1,23 @@
+---
+// Fallback page served by the service worker (public/sw.js) when a page
+// isn't cached and the network is unavailable.
+import Base from '../layouts/Base.astro';
+export const prerender = true;
+---
+
+<Base title="Offline">
+  <div class="max-w-xl mx-auto px-4 py-20 text-center">
+    <h1 class="text-3xl font-bold text-primary mb-4">You're offline</h1>
+    <p class="text-gray-600 mb-8">
+      This page hasn't been saved on your device yet. Pages you've visited before,
+      like fixtures and results, are still available.
+    </p>
+    <button
+      type="button"
+      onclick="location.reload()"
+      class="bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90"
+    >
+      Try again
+    </button>
+  </div>
+</Base>
