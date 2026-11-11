@@ -44,6 +44,12 @@ Editors log in at `/admin/` via Netlify Identity. Decap CMS (Git Gateway) commit
 
 Colors are defined in `src/data/theme.json` and injected as inline CSS custom properties (`--color-primary`, `--color-secondary`, `--color-accent`) in `src/layouts/Base.astro`. Tailwind extends those via `tailwind.config.mjs` so `text-primary`, `bg-secondary`, etc. work throughout templates.
 
+### PWA & push notifications
+
+- `public/sw.js` — service worker: offline caching (pages network-first, `/offline/` fallback, fixture JSON from raw.githubusercontent cached for offline) plus `push`/`notificationclick` handlers. Registered in production only (`Base.astro`). Bump `VERSION` when changing caching logic.
+- `src/pages/manifest.webmanifest.ts` — manifest generated from `theme.json`.
+- Push: `src/components/PushSubscribe.astro` (opt-in UI on /fixtures; one topic per competition, e.g. "Crewe – Hybrid", keys defined in `src/lib/push/teams.mjs`) → `netlify/functions/push-subscribe.mjs` (stores in Netlify Blobs). The daily scrape workflow runs `scripts/push-notify.mjs`, which diffs `fixtures.json` against the previous commit and calls `netlify/functions/push-send.mjs`. Shared logic lives in `src/lib/push/` — see its README (this site is a test bed for porting push to other projects). Requires `VAPID_PRIVATE_KEY` + `PUSH_SEND_SECRET` in Netlify and `PUSH_SEND_SECRET` in GitHub secrets.
+
 ### Client-side interactivity
 
 Vanilla JS only — no framework:

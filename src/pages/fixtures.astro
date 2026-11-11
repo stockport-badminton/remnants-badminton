@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PushSubscribe from '../components/PushSubscribe.astro';
 ---
 
 <Base title="Fixtures & Results">
@@ -29,6 +30,8 @@ import Base from '../layouts/Base.astro';
       <p class="text-sm mt-1">Please try refreshing the page.</p>
     </div>
     <div id="fixture-output"  class="hidden"></div>
+
+    <PushSubscribe />
   </div>
 </Base>
 

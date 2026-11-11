@@ -6,12 +6,15 @@
  *     last cached copy, then to /offline.
  *   - /_astro/* (content-hashed build assets): cache-first.
  *   - Other same-origin assets + Google Fonts: stale-while-revalidate.
+ *   - Fixture data (fetched at runtime from raw.githubusercontent.com): network-first,
+ *     so the fixtures page still has data offline.
  *   - /admin, Netlify internals, .ics feeds, non-GET: untouched (straight to network).
  *
  * Bump VERSION when changing this file's caching logic; old caches are purged on activate.
- * Push notification handlers will be added here later.
+ * Push notification handlers are at the bottom.
  */
-const VERSION = 'v1';
+const VERSION = 'v2';
+const DATA_HOSTS = ['raw.githubusercontent.com'];
 const PRECACHE = `precache-${VERSION}`;
 const PAGES = `pages-${VERSION}`;
 const ASSETS = `assets-${VERSION}`;
@@ -45,6 +48,10 @@ self.addEventListener('fetch', (event) => {
   const sameOrigin = url.origin === self.location.origin;
   const isFont = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
 
+  if (DATA_HOSTS.includes(url.hostname) && url.pathname.endsWith('.json')) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
   if (!sameOrigin && !isFont) return;
   if (sameOrigin && (
     url.pathname.startsWith('/admin') ||
@@ -72,11 +79,10 @@ async function networkFirst(request) {
     }
     return response;
   } catch {
-    return (
-      (await cache.match(request, { ignoreSearch: true })) ||
-      (await caches.match(OFFLINE_URL)) ||
-      Response.error()
-    );
+    const cached = await cache.match(request, { ignoreSearch: true });
+    if (cached) return cached;
+    if (request.mode === 'navigate') return (await caches.match(OFFLINE_URL)) || Response.error();
+    return Response.error();
   }
 }
 
@@ -115,3 +121,33 @@ async function trim(cacheName, max) {
   const keys = await cache.keys();
   for (let i = 0; i < keys.length - max; i++) await cache.delete(keys[i]);
 }
+
+/* ── Push notifications ──────────────────────────────────────────────────────
+ * Payload (from netlify/functions/push-send.mjs): { title, body, url, tag }
+ */
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch { data = { body: event.data?.text() }; }
+  const title = data.title || 'Remnants Badminton';
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body: data.body || '',
+      tag: data.tag,          // same tag replaces rather than stacks
+      icon: '/icons/icon-192.png',
+      badge: '/icons/badge-96.png',
+      data: { url: data.url || '/' },
+    }),
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const target = new URL(event.notification.data?.url || '/', self.location.origin).href;
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windows) => {
+      const existing = windows.find((w) => new URL(w.url).origin === self.location.origin);
+      if (existing) return existing.navigate(target).then((w) => (w || existing).focus());
+      return self.clients.openWindow(target);
+    }),
+  );
+});
