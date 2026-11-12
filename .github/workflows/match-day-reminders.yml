@@ -1,13 +1,28 @@
-name: Match-day Reminders
+name: Match Reminders
 
-# Sends a push notification to subscribers for each club fixture being played
-# today. 08:30 UTC = 08:30 GMT / 09:30 BST. Uses the fixtures.json on master,
-# which the midnight scrape keeps current.
+# Two push reminders per club fixture (no league publishes start times; matches
+# are usually 7–8pm):
+#   18:00 UK the evening before → "Tomorrow: …"
+#   17:00 UK on match day        → "Tonight: …"
+#
+# Cron is UTC, so it fires at 16:07, 17:07 and 18:07 UTC and each run works out
+# which UK hour it was *scheduled* for (GMT or BST); only the 17:00/18:00 UK
+# slots send. Using the scheduled time, not the clock, means a run that GitHub
+# starts late can't land in the next slot and send twice. :07 avoids the
+# top-of-hour queue. Uses the fixtures.json on master.
 on:
   schedule:
-    - cron: '30 8 * * *'
+    # Separate entries (not '7 16-18'), so github.event.schedule names the hour.
+    - cron: '7 16 * * *'
+    - cron: '7 17 * * *'
+    - cron: '7 18 * * *'
   workflow_dispatch:
     inputs:
+      kind:
+        description: 'Which reminder to send'
+        type: choice
+        options: [tonight, tomorrow]
+        default: tonight
       date:
         description: 'Pretend it is this date (YYYY-MM-DD). Leave blank for today.'
         required: false
@@ -20,23 +35,43 @@ jobs:
   remind:
     runs-on: ubuntu-latest
     steps:
+      - name: Pick reminder for this slot
+        id: slot
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          KIND: ${{ inputs.kind }}
+        run: |
+          if [ -z "$SCHEDULE" ]; then echo "kind=$KIND" >> "$GITHUB_OUTPUT"; exit 0; fi
+          read -r min hour _ <<< "$SCHEDULE"
+          # A run delayed past midnight UTC would use the wrong date, but slots are 16–18 UTC.
+          uk=$(TZ=Europe/London date -d "$(date -u +%F) $hour:$min UTC" +%H)
+          case "$uk" in
+            17) echo "kind=tonight" >> "$GITHUB_OUTPUT" ;;
+            18) echo "kind=tomorrow" >> "$GITHUB_OUTPUT" ;;
+            *)  echo "Scheduled slot is ${uk}:${min} UK — nothing to send." ;;
+          esac
+
       - name: Checkout
+        if: steps.slot.outputs.kind
         uses: actions/checkout@v4
 
       - name: Setup Node
+        if: steps.slot.outputs.kind
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       # No npm ci: the reminder path only uses Node built-ins.
-      - name: Send match-day reminders
+      - name: Send reminders
+        if: steps.slot.outputs.kind
         env:
           PUSH_SEND_SECRET: ${{ secrets.PUSH_SEND_SECRET }}
           SITE_URL: ${{ vars.SITE_URL }}
+          KIND: ${{ steps.slot.outputs.kind }}
           DATE: ${{ inputs.date }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          args=(--reminders)
+          args=(--reminders "$KIND")
           [ -n "$DATE" ] && args+=(--date "$DATE")
           [ "$DRY_RUN" = "true" ] && args+=(--dry-run)
           node scripts/push-notify.mjs "${args[@]}"

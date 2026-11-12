@@ -7,9 +7,10 @@
  *   node scripts/push-notify.mjs                 # compare HEAD~1 → HEAD and send
  *   node scripts/push-notify.mjs --base <ref>    # compare <ref> → HEAD
  *
- * Match-day reminders (run each morning): today's unplayed club fixtures.
- *   node scripts/push-notify.mjs --reminders
- *   node scripts/push-notify.mjs --reminders --date 2026-11-25 --dry-run
+ * Match reminders: unplayed club fixtures tonight (sent ~17:00 UK) or
+ * tomorrow (sent ~18:00 UK the evening before). Default: tonight.
+ *   node scripts/push-notify.mjs --reminders tonight
+ *   node scripts/push-notify.mjs --reminders tomorrow --date 2026-11-25 --dry-run
  *
  *   --dry-run       print what would be sent
  *   --test "msg"    send a test notification to everyone
@@ -19,7 +20,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resultNotifications } from '../src/lib/push/diff.mjs';
-import { matchDayNotifications } from '../src/lib/push/reminders.mjs';
+import { REMINDER_KINDS, reminderNotifications } from '../src/lib/push/reminders.mjs';
 
 const FILE = 'src/data/fixtures.json';
 const MAX_PER_RUN = 10; // more than this is a back-fill/re-import, not news
@@ -32,6 +33,7 @@ const dryRun = flag('--dry-run');
 const base = value('--base') ?? 'HEAD~1';
 const testMessage = value('--test');
 const reminders = flag('--reminders');
+const when = REMINDER_KINDS.includes(value('--reminders')) ? value('--reminders') : 'tonight';
 const date = value('--date'); // YYYY-MM-DD, reminders only
 const siteUrl = (process.env.SITE_URL || 'https://quiet-kringle-2ac59b.netlify.app').replace(/\/$/, '');
 
@@ -50,9 +52,9 @@ if (testMessage) {
   const { fixtures = [] } = JSON.parse(readFileSync(FILE, 'utf8'));
   // Noon UK time on --date, so the UK calendar date is unambiguous.
   const now = date ? new Date(`${date}T12:00:00Z`) : new Date();
-  notifications = matchDayNotifications(fixtures, { now });
+  notifications = reminderNotifications(fixtures, { now, when });
   if (!notifications.length) {
-    console.log('push-notify: no club fixtures today.');
+    console.log(`push-notify: no club fixtures ${when === 'tomorrow' ? 'tomorrow' : 'today'}.`);
     process.exit(0);
   }
 } else {

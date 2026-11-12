@@ -11,7 +11,7 @@ fixtures page ── PushSubscribe.astro ──POST──▶ netlify/functions/p
                                                                                      │
 GitHub Action (daily scrape) ── scripts/push-notify.mjs                              │
    diffs fixtures.json HEAD~1→HEAD ──POST (Bearer secret)──▶ push-send ── list ◀────┘
-GitHub Action (08:30 UTC) ── push-notify.mjs --reminders ──┘
+GitHub Action (17:00/18:00 UK) ── push-notify.mjs --reminders tonight|tomorrow ──┘
                                                                │
                                                      web-push → FCM / Apple / Mozilla
                                                                │
@@ -25,7 +25,7 @@ GitHub Action (08:30 UTC) ── push-notify.mjs --reminders ──┘
 | `store-blobs.mjs` | 🔁 swap | Netlify Blobs. For a site with a database, implement `put/get/remove/list` against a table (see below). Preview deploys use a separate store. |
 | `teams.mjs` | 🔁 adapt | Defines the *topics* people subscribe to: one per club side per competition. Keys ignore the division level so they survive promotion and relegation (`Stockport\|Remnants A\|`, `Crewe\|Remnants A\|Hybrid`). Labels show the current division ("Stockport – Division 1"). The UI offers the current season's topics; the server accepts topics from any season. |
 | `diff.mjs` | 🔁 adapt | Converts the site's data changes into `{ type: 'results', teams, title, body, url, tag }`. |
-| `reminders.mjs` | 🔁 adapt | Builds today's fixtures (UK date) into `{ type: 'reminders', … }`. With real start times you could send a few hours before instead. |
+| `reminders.mjs` | 🔁 adapt | Builds `{ type: 'reminders', … }` for tomorrow's fixtures (sent 18:00 UK the evening before) or tonight's (sent 17:00 UK). No league publishes start times, so the send times are fixed around the usual 7–8pm start. The workflow turns UTC cron into UK slots, including across clock changes. With real start times you could send relative to each match instead. Each kind has its own tag, because a same-tag notification replaces the old one silently. |
 | `public/sw.js` (push section) | ✅ as-is | Handles `push` and `notificationclick`. |
 | `PushSubscribe.astro` | ✅ mostly | The UI handles unsupported browsers, iOS "add to Home Screen" first, blocked permission, subscribe, change teams and turn off. |
 
@@ -61,7 +61,8 @@ If you rotate the VAPID keys, every existing subscription stops working and ever
 ```bash
 node scripts/push-notify.mjs --dry-run                 # what would the last scrape have sent?
 node scripts/push-notify.mjs --base HEAD~20 --dry-run  # diff over a longer range
-node scripts/push-notify.mjs --reminders --date 2026-11-17 --dry-run  # reminders for a given day
+node scripts/push-notify.mjs --reminders tonight --date 2026-11-17 --dry-run    # that evening's reminders
+node scripts/push-notify.mjs --reminders tomorrow --date 2026-11-16 --dry-run   # the day-before ones
 PUSH_SEND_SECRET=… node scripts/push-notify.mjs --test "Hello"   # send to every subscriber
 PUSH_SEND_SECRET=… SITE_URL=https://deploy-preview-N--….netlify.app node scripts/push-notify.mjs --test "Hi"  # preview store only
 ```
