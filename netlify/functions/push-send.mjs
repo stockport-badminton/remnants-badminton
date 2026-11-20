@@ -1,7 +1,8 @@
 // POST /.netlify/functions/push-send
 //   Authorization: Bearer <PUSH_SEND_SECRET>
 //   { notifications: [{ type?: 'results'|'reminders', teams?: string[], title, body, url?, tag? }] }
-// Called by the fixtures GitHub Action (scripts/push-notify.mjs).
+// For manual sends from scripts/push-notify.mjs (--test, back-filling a missed
+// result). Scheduled sends go direct from push-reminders / push-results.
 import { timingSafeEqual } from 'node:crypto';
 import push from '../../src/data/push.json' with { type: 'json' };
 import { createBlobStore } from '../../src/lib/push/store-blobs.mjs';

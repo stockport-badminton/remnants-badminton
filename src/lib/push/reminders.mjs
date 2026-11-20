@@ -5,7 +5,7 @@
 // Neither league publishes start times (Crewe's 19:00 is a placeholder,
 // Stockport's dates are midnight), so fixtures are matched on their UK calendar
 // date and the send times are fixed around the usual 7–8pm start; see
-// .github/workflows/match-day-reminders.yml.
+// netlify/functions/push-reminders.mjs.
 import { teamKey, topicOf } from './teams.mjs';
 
 const TZ = 'Europe/London';

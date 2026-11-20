@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Sends push notifications via the site's push-send function.
+ * Sends push notifications via the site's push-send function. Manual tool only:
+ * the scheduled sends are Netlify functions (push-reminders, push-results).
+ * Use this for --dry-run checks, --test messages or re-sending something missed.
  *
  * Results (run after the daily scrape): diffs fixtures.json between two git
  * revisions and notifies new results.
@@ -94,5 +96,5 @@ const res = await fetch(`${siteUrl}/.netlify/functions/push-send`, {
 });
 const text = await res.text();
 console.log(`push-notify: ${res.status} ${text}`);
-// Don't fail the scrape workflow over a notification problem, but make it visible.
+// Report a send failure as a warning, not an error.
 if (!res.ok) console.log('::warning::push-notify failed: ' + res.status);

@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2   # push-notify diffs against the previous commit
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -36,6 +34,8 @@ jobs:
 
       - name: Commit updated fixtures & calendars
         id: commit
+        # Result notifications are sent at 12:00 UK by the push-results Netlify
+        # scheduled function, which reads the fixtures.json pushed here.
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -51,11 +51,3 @@ jobs:
       - name: Push
         if: steps.commit.outputs.changed == 'true'
         run: git push
-
-      # After the push, so the fixtures page already shows the result when tapped.
-      - name: Send push notifications for new results
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          PUSH_SEND_SECRET: ${{ secrets.PUSH_SEND_SECRET }}
-          SITE_URL: ${{ vars.SITE_URL }}
-        run: node scripts/push-notify.mjs
