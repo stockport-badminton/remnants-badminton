@@ -669,12 +669,12 @@
       "date": "2026-11-20T19:00:00.000Z",
       "homeTeam": "Alsager 'A'",
       "awayTeam": "Remnants 'A'",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "outstanding",
+      "homeScore": 9,
+      "awayScore": 9,
+      "status": "complete",
       "isHome": false,
       "division": "Mens(6) Division 1",
-      "result": null
+      "result": "D"
     },
     {
       "id": "crewe-2026-11-27T19:00:00.000Z-Alsager-'A'",
@@ -1015,5 +1015,5 @@
       "result": null
     }
   ],
-  "lastUpdated": "2026-11-21T05:00:23.120Z"
+  "lastUpdated": "2026-11-22T04:23:46.013Z"
 }
